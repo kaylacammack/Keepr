@@ -39,4 +39,18 @@ public class VaultsRepository
         }, new { vaultId }).FirstOrDefault();
         return vault;
     }
+
+    public bool UpdateVault(Vault update)
+    {
+        string sql = @"
+        UPDATE vaults SET
+        name = @name,
+        description = @description,
+        img = @img,
+        isPrivate = @isPrivate
+        WHERE id = @id
+        ";
+        int rows = _db.Execute(sql, update);
+        return rows > 0;
+    }
 }

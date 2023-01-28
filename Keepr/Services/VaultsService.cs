@@ -23,4 +23,17 @@ public class VaultsService
         }
         return vault;
     }
+
+    public Vault UpdateVault(Vault updateData)
+    {
+        Vault original = GetVaultById(updateData.Id);
+        if (original.CreatorId != updateData.CreatorId) throw new Exception("You may only modify a vault you have created");
+        original.Name = updateData.Name ?? original.Name;
+        original.Description = updateData.Description ?? original.Description;
+        original.Img = updateData.Img ?? original.Img;
+        original.IsPrivate = updateData.IsPrivate ?? original.IsPrivate;
+
+        _repo.UpdateVault(original);
+        return original;
+    }
 }
