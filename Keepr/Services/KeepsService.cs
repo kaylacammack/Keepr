@@ -29,4 +29,16 @@ public class KeepsService
         }
         return keep;
     }
+
+    internal Keep UpdateKeep(Keep updateData)
+    {
+        Keep original = GetKeepById(updateData.Id);
+        if (original.CreatorId != updateData.CreatorId) throw new Exception("You may only modify keeps you have created");
+        original.Name = updateData.Name ?? original.Name;
+        original.Description = updateData.Description ?? original.Description;
+        original.Img = updateData.Img ?? original.Img;
+
+        _repo.UpdateKeep(original);
+        return original;
+    }
 }

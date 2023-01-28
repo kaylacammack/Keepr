@@ -8,7 +8,7 @@ public class KeepsRepository
         _db = db;
     }
 
-    internal Keep CreateKeep(Keep keepData)
+    public Keep CreateKeep(Keep keepData)
     {
         string sql = @"
         INSERT INTO keeps
@@ -22,7 +22,7 @@ public class KeepsRepository
         return keepData;
     }
 
-    internal List<Keep> GetAllKeeps()
+    public List<Keep> GetAllKeeps()
     {
         string sql = @"
         SELECT
@@ -39,7 +39,7 @@ public class KeepsRepository
         return keeps;
     }
 
-    internal Keep GetKeepById(int keepId)
+    public Keep GetKeepById(int keepId)
     {
         string sql = @"
         SELECT
@@ -55,5 +55,18 @@ public class KeepsRepository
             return k;
         }, new { keepId }).FirstOrDefault();
         return keep;
+    }
+
+    public bool UpdateKeep(Keep update)
+    {
+        string sql = @"
+        UPDATE keeps SET
+        name = @name,
+        description = @description,
+        img = @img
+        WHERE id = @id;
+        ";
+        int rows = _db.Execute(sql, update);
+        return rows > 0;
     }
 }
