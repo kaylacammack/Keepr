@@ -7,4 +7,20 @@ public class VaultsService
     {
         _repo = repo;
     }
+
+    public Vault CreateVault(Vault vaultData)
+    {
+        Vault vault = _repo.CreateVault(vaultData);
+        return vault;
+    }
+
+    public Vault GetVaultById(int vaultId)
+    {
+        Vault vault = _repo.GetVaultById(vaultId);
+        if (vault == null)
+        {
+            throw new Exception($"No vault at id: {vaultId}");
+        }
+        return vault;
+    }
 }

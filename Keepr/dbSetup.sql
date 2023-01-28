@@ -26,4 +26,15 @@ CREATE TABLE
 
 DROP TABLE keeps;
 
-SELECT k.*, 
+-- SECTION VAULTS
+
+CREATE TABLE
+    IF NOT EXISTS vaults(
+        id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        creatorId VARCHAR(255) NOT NULL,
+        name VARCHAR(255) NOT NULL,
+        description TEXT NOT NULL,
+        img VARCHAR(255) NOT NULL,
+        isPrivate BOOLEAN NOT NULL DEFAULT false,
+        FOREIGN KEY (creatorId) REFERENCES accounts (id) ON DELETE CASCADE
+    ) default charset utf8 COMMENT '';

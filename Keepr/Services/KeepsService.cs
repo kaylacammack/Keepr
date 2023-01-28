@@ -8,19 +8,18 @@ public class KeepsService
         _repo = repo;
     }
 
-    internal Keep CreateKeep(Keep keepData)
+    public Keep CreateKeep(Keep keepData)
     {
         Keep keep = _repo.CreateKeep(keepData);
         return keep;
     }
-
-    internal List<Keep> GetAllKeeps()
+    public List<Keep> GetAllKeeps()
     {
         List<Keep> keeps = _repo.GetAllKeeps();
         return keeps;
     }
 
-    internal Keep GetKeepById(int keepId)
+    public Keep GetKeepById(int keepId)
     {
         Keep keep = _repo.GetKeepById(keepId);
         if (keep == null)
@@ -30,7 +29,7 @@ public class KeepsService
         return keep;
     }
 
-    internal Keep UpdateKeep(Keep updateData)
+    public Keep UpdateKeep(Keep updateData)
     {
         Keep original = GetKeepById(updateData.Id);
         if (original.CreatorId != updateData.CreatorId) throw new Exception("You may only modify keeps you have created");
@@ -42,7 +41,7 @@ public class KeepsService
         return original;
     }
 
-    internal string RemoveKeep(int keepId, string userId)
+    public string RemoveKeep(int keepId, string userId)
     {
         Keep keep = _repo.GetKeepById(keepId);
         if (keep == null) throw new Exception($"No keep at id {keepId}");
