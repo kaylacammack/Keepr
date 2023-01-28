@@ -36,4 +36,14 @@ public class VaultsService
         _repo.UpdateVault(original);
         return original;
     }
+
+    public string RemoveVault(int vaultId, string userId)
+    {
+        Vault vault = _repo.GetVaultById(vaultId);
+        if (vault == null) throw new Exception($"No vault at id: {vaultId}");
+        if (vault.CreatorId != userId) throw new Exception("You cannot delete a vault you did not create");
+        bool result = _repo.RemoveVault(vaultId);
+        if (result == false) throw new Exception($"No vault at id: {vaultId}");
+        return "Vault has been deleted";
+    }
 }

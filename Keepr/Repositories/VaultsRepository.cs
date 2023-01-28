@@ -53,4 +53,14 @@ public class VaultsRepository
         int rows = _db.Execute(sql, update);
         return rows > 0;
     }
+
+    public bool RemoveVault(int vaultId)
+    {
+        string sql = @"
+        DELETE from vaults
+        WHERE id = @vaultId
+        ";
+        int rows = _db.Execute(sql, new { vaultId });
+        return rows > 0;
+    }
 }
