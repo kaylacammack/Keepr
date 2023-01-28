@@ -38,3 +38,16 @@ CREATE TABLE
         isPrivate BOOLEAN NOT NULL DEFAULT false,
         FOREIGN KEY (creatorId) REFERENCES accounts (id) ON DELETE CASCADE
     ) default charset utf8 COMMENT '';
+
+-- SECTION VAULTKEEPS
+
+CREATE TABLE
+    IF NOT EXISTS vaultkeeps(
+        id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        creatorId VARCHAR(255) NOT NULL,
+        vaultId INT NOT NULL,
+        keepId INT NOT NULL,
+        FOREIGN KEY (creatorId) REFERENCES accounts (id) ON DELETE CASCADE,
+        FOREIGN KEY (vaultId) REFERENCES vaults (id) ON DELETE CASCADE,
+        FOREIGN KEY (keepId) REFERENCES keeps (id) ON DELETE CASCADE
+    ) default charset utf8 COMMENT '';
