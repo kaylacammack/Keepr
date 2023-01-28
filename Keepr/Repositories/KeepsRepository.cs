@@ -49,7 +49,11 @@ public class KeepsRepository
         JOIN accounts a ON a.id = k.creatorId
         WHERE k.id = @keepId
         ";
-        Keep keep = _db.Query<Keep>(sql, new { keepId }).FirstOrDefault();
+        Keep keep = _db.Query<Keep, Account, Keep>(sql, (k, a) =>
+        {
+            k.Creator = a;
+            return k;
+        }, new { keepId }).FirstOrDefault();
         return keep;
     }
 }
