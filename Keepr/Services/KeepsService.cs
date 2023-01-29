@@ -3,9 +3,11 @@ namespace Keepr.Services;
 public class KeepsService
 {
     private readonly KeepsRepository _repo;
-    public KeepsService(KeepsRepository repo)
+    private readonly VaultsService _vaultsService;
+    public KeepsService(KeepsRepository repo, VaultsService vaultsService)
     {
         _repo = repo;
+        _vaultsService = vaultsService;
     }
 
     public Keep CreateKeep(Keep keepData)
@@ -29,10 +31,11 @@ public class KeepsService
         return keep;
     }
 
-    public List<Keep> GetKeepsByVault(int vaultId)
+    public List<Keep> GetKeepsByVault(int vaultId, string userId)
     {
-        List<Keep> keeps = _repo.GetKeepsByVault(vaultId);
-        return keeps;
+        Vault vault = _vaultsService.GetVaultById(vaultId, userId);
+
+        return _repo.GetKeepsByVault(vaultId);
     }
 
     public List<Keep> GetAllProfileKeeps(string profileId)

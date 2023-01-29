@@ -21,7 +21,7 @@ public class VaultsService
         {
             throw new Exception($"No vault at id: {vaultId}");
         }
-        if (vault.IsPrivate == true && vault.CreatorId != userId)
+        if (vault.CreatorId != userId && vault.IsPrivate == true)
         {
             throw new Exception("This vault can only be seen by it's owner");
         }

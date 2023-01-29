@@ -14,9 +14,17 @@ public class VaultKeepsService
         return vaultKeep;
     }
 
-    public VaultKeep GetVaultKeepById(int vaultKeepId)
+    public VaultKeep GetVaultKeepById(int vaultKeepId, string userId)
     {
         VaultKeep vaultKeep = _repo.GetVaultKeepById(vaultKeepId);
+        if (vaultKeep == null)
+        {
+            throw new Exception($"Unable to find vaultkeep at id: {vaultKeepId}");
+        }
+        if (vaultKeep.CreatorId != userId)
+        {
+            throw new Exception("Unauthorized");
+        }
         return vaultKeep;
     }
 

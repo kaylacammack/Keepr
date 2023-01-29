@@ -30,11 +30,13 @@ public class VaultKeepsController : ControllerBase
     }
 
     [HttpGet("{vaultKeepId}")]
-    public ActionResult<VaultKeep> GetVaultKeepById(int vaultKeepId)
+    [Authorize]
+    public async Task<ActionResult<VaultKeep>> GetVaultKeepById(int vaultKeepId)
     {
         try
         {
-            VaultKeep vaultKeep = _vaultKeepsService.GetVaultKeepById(vaultKeepId);
+            Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+            VaultKeep vaultKeep = _vaultKeepsService.GetVaultKeepById(vaultKeepId, userInfo.Id);
             return Ok(vaultKeep);
         }
         catch (Exception e)
@@ -44,13 +46,12 @@ public class VaultKeepsController : ControllerBase
     }
 
     [HttpDelete("{vaultKeepId}")]
-    [Authorize]
     public async Task<ActionResult<string>> RemoveVaultKeep(int vaultKeepId)
     {
         try
         {
             Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
-            string message = _vaultKeepsService.RemoveVaultKeep(vaultKeepId, userInfo.Id);
+            string message = _vaultKeepsService.RemoveVaultKeep(vaultKeepId, userInfo?.Id);
             return Ok(message);
         }
         catch (Exception e)
