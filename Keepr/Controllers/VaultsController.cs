@@ -62,7 +62,6 @@ public class VaultsController : ControllerBase
     }
 
     [HttpPut("{vaultId}")]
-    [Authorize]
     public async Task<ActionResult<Vault>> UpdateVault(int vaultId, [FromBody] Vault updateData)
     {
         try
@@ -70,7 +69,7 @@ public class VaultsController : ControllerBase
             Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
             updateData.CreatorId = userInfo.Id;
             updateData.Id = vaultId;
-            Vault vault = _vaultsService.UpdateVault(updateData, userInfo.Id);
+            Vault vault = _vaultsService.UpdateVault(updateData, userInfo?.Id);
             return Ok(vault);
         }
         catch (Exception e)

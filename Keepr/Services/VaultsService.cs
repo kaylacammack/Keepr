@@ -31,7 +31,7 @@ public class VaultsService
     public List<Vault> GetAllProfileVaults(string profileId, string userId)
     {
         List<Vault> vaults = _repo.GetAllProfileVaults(profileId);
-        vaults = vaults.FindAll(v => v.IsPrivate == false || v.CreatorId == profileId);
+        vaults = vaults.FindAll(v => v.IsPrivate == false || v.CreatorId == userId);
         return vaults;
     }
 

@@ -46,7 +46,7 @@ public class ProfilesController : ControllerBase
     }
 
     [HttpGet("{profileId}/vaults")]
-    [Authorize]
+
 
     public async Task<ActionResult<List<Vault>>> GetAllProfileVaults(string profileId)
     {
