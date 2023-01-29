@@ -28,6 +28,13 @@ public class VaultsService
         return vault;
     }
 
+    public List<Vault> GetAllProfileVaults(string profileId, string userId)
+    {
+        List<Vault> vaults = _repo.GetAllProfileVaults(profileId);
+        vaults = vaults.FindAll(v => v.IsPrivate == false || v.CreatorId == profileId);
+        return vaults;
+    }
+
     public Vault UpdateVault(Vault updateData, string userId)
     {
         Vault original = GetVaultById(updateData.Id, userId);

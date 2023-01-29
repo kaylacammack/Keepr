@@ -33,7 +33,11 @@ public class KeepsService
     {
         List<Keep> keeps = _repo.GetKeepsByVault(vaultId);
         return keeps;
+    }
 
+    public List<Keep> GetAllProfileKeeps(string profileId)
+    {
+        return _repo.GetAllProfileKeeps(profileId);
     }
 
     public Keep UpdateKeep(Keep updateData)

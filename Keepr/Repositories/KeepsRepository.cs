@@ -85,6 +85,24 @@ public class KeepsRepository
         return keeps;
     }
 
+    public List<Keep> GetAllProfileKeeps(string profileId)
+    {
+        string sql = @"
+        SELECT
+        k.*,
+        a.*
+        FROM keeps k
+        JOIN accounts a ON k.creatorId = a.id
+        WHERE k.creatorId = @profileId
+        ";
+        List<Keep> keeps = _db.Query<Keep, Account, Keep>(sql, (keep, account) =>
+        {
+            keep.Creator = account;
+            return keep;
+        }, new { profileId }).ToList();
+        return keeps;
+    }
+
     public bool UpdateKeep(Keep update)
     {
         string sql = @"

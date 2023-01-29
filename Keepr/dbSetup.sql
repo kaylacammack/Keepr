@@ -67,4 +67,9 @@ FROM vaultkeeps vk
     JOIN accounts a ON a.Id = vk.creatorId
     JOIN vaults v ON v.id = 21
     JOIN keeps k ON k.id = vk.keepId
-WHERE vk.vaultId = 21
+WHERE vk.vaultId = 21;
+
+SELECT v.*, a.*
+FROM vaults v
+    JOIN accounts a ON v.creatorId = a.id
+WHERE v.creatorId = "63c9b1c875f8e740f5723648"
