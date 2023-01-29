@@ -10,5 +10,6 @@ public class Keep
     public int Views { get; set; }
     // STUB Virtuals
     public int Kept { get; set; }
+    public int VaultKeepId { get; set; }
     public Account Creator { get; set; }
 }

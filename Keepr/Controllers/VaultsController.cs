@@ -5,11 +5,13 @@ namespace Keepr.Controllers;
 public class VaultsController : ControllerBase
 {
     private readonly VaultsService _vaultsService;
+    private readonly KeepsService _keepsService;
     private readonly Auth0Provider _auth0Provider;
-    public VaultsController(VaultsService vaultsService, Auth0Provider auth0Provider)
+    public VaultsController(VaultsService vaultsService, Auth0Provider auth0Provider, KeepsService keepsService)
     {
         _vaultsService = vaultsService;
         _auth0Provider = auth0Provider;
+        _keepsService = keepsService;
     }
 
     [HttpPost]
@@ -31,12 +33,27 @@ public class VaultsController : ControllerBase
     }
 
     [HttpGet("{vaultId}")]
-    public ActionResult<Vault> GetVaultById(int vaultId)
+    [Authorize]
+    public async Task<ActionResult<Vault>> GetVaultById(int vaultId)
     {
         try
         {
-            Vault vault = _vaultsService.GetVaultById(vaultId);
+            Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+            Vault vault = _vaultsService.GetVaultById(vaultId, userInfo.Id);
             return Ok(vault);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+    [HttpGet("{vaultId}/keeps")]
+    public ActionResult<List<VaultKeep>> GetKeepsByVaultId(int vaultId)
+    {
+        try
+        {
+            List<Keep> keeps = _keepsService.GetKeepsByVault(vaultId);
+            return Ok(keeps);
         }
         catch (Exception e)
         {
@@ -53,7 +70,7 @@ public class VaultsController : ControllerBase
             Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
             updateData.CreatorId = userInfo.Id;
             updateData.Id = vaultId;
-            Vault vault = _vaultsService.UpdateVault(updateData);
+            Vault vault = _vaultsService.UpdateVault(updateData, userInfo.Id);
             return Ok(vault);
         }
         catch (Exception e)
@@ -77,4 +94,6 @@ public class VaultsController : ControllerBase
             return BadRequest(e.Message);
         }
     }
+
+
 }

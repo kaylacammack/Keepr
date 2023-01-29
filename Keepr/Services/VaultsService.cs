@@ -14,19 +14,23 @@ public class VaultsService
         return vault;
     }
 
-    public Vault GetVaultById(int vaultId)
+    public Vault GetVaultById(int vaultId, string userId)
     {
         Vault vault = _repo.GetVaultById(vaultId);
         if (vault == null)
         {
             throw new Exception($"No vault at id: {vaultId}");
         }
+        if (vault.IsPrivate == true && vault.CreatorId != userId)
+        {
+            throw new Exception("This vault can only be seen by it's owner");
+        }
         return vault;
     }
 
-    public Vault UpdateVault(Vault updateData)
+    public Vault UpdateVault(Vault updateData, string userId)
     {
-        Vault original = GetVaultById(updateData.Id);
+        Vault original = GetVaultById(updateData.Id, userId);
         if (original.CreatorId != updateData.CreatorId) throw new Exception("You may only modify a vault you have created");
         original.Name = updateData.Name ?? original.Name;
         original.Description = updateData.Description ?? original.Description;

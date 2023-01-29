@@ -19,7 +19,7 @@ public class KeepsController : ControllerBase
         try
         {
             Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
-            keepData.CreatorId = userInfo.Id;
+            keepData.CreatorId = userInfo?.Id;
             Keep keep = _keepsService.CreateKeep(keepData);
             keepData.Creator = userInfo;
             return Ok(keep);
@@ -65,7 +65,7 @@ public class KeepsController : ControllerBase
         try
         {
             Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
-            updateData.CreatorId = userInfo.Id;
+            updateData.CreatorId = userInfo?.Id;
             updateData.Id = keepId;
             Keep keep = _keepsService.UpdateKeep(updateData);
             return Ok(keep);

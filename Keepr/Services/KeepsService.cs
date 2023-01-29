@@ -29,6 +29,13 @@ public class KeepsService
         return keep;
     }
 
+    public List<Keep> GetKeepsByVault(int vaultId)
+    {
+        List<Keep> keeps = _repo.GetKeepsByVault(vaultId);
+        return keeps;
+
+    }
+
     public Keep UpdateKeep(Keep updateData)
     {
         Keep original = GetKeepById(updateData.Id);

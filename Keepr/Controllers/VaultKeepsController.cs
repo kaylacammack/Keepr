@@ -11,4 +11,51 @@ public class VaultKeepsController : ControllerBase
         _vaultKeepsService = vaultKeepsService;
         _auth0Provider = auth0Provider;
     }
+
+    [HttpPost]
+    [Authorize]
+    public async Task<ActionResult<VaultKeep>> CreateVaultKeep([FromBody] VaultKeep vaultKeepData)
+    {
+        try
+        {
+            Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+            vaultKeepData.CreatorId = userInfo.Id;
+            VaultKeep vaultKeep = _vaultKeepsService.CreateVaultKeep(vaultKeepData);
+            return Ok(vaultKeep);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
+    [HttpGet("{vaultKeepId}")]
+    public ActionResult<VaultKeep> GetVaultKeepById(int vaultKeepId)
+    {
+        try
+        {
+            VaultKeep vaultKeep = _vaultKeepsService.GetVaultKeepById(vaultKeepId);
+            return Ok(vaultKeep);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
+    [HttpDelete("{vaultKeepId}")]
+    [Authorize]
+    public async Task<ActionResult<string>> RemoveVaultKeep(int vaultKeepId)
+    {
+        try
+        {
+            Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+            string message = _vaultKeepsService.RemoveVaultKeep(vaultKeepId, userInfo.Id);
+            return Ok(message);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
 }

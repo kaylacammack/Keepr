@@ -21,6 +21,7 @@ CREATE TABLE
         description TEXT NOT NULL,
         img VARCHAR(255) NOT NULL,
         views INT NOT NULL DEFAULT 0,
+        vaultKeepId INT,
         FOREIGN KEY (creatorId) REFERENCES accounts (id) ON DELETE CASCADE
     ) default charset utf8 COMMENT '';
 
@@ -39,6 +40,8 @@ CREATE TABLE
         FOREIGN KEY (creatorId) REFERENCES accounts (id) ON DELETE CASCADE
     ) default charset utf8 COMMENT '';
 
+DROP TABLE vaults;
+
 -- SECTION VAULTKEEPS
 
 CREATE TABLE
@@ -51,3 +54,17 @@ CREATE TABLE
         FOREIGN KEY (vaultId) REFERENCES vaults (id) ON DELETE CASCADE,
         FOREIGN KEY (keepId) REFERENCES keeps (id) ON DELETE CASCADE
     ) default charset utf8 COMMENT '';
+
+DROP TABLE vaultkeeps;
+
+SELECT
+    vk.id as vaultKeepId,
+    vk.keepId as keepId,
+    k.*,
+    v.*,
+    a.*
+FROM vaultkeeps vk
+    JOIN accounts a ON a.Id = vk.creatorId
+    JOIN vaults v ON v.id = 21
+    JOIN keeps k ON k.id = vk.keepId
+WHERE vk.vaultId = 21
