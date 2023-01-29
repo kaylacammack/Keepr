@@ -8,8 +8,12 @@ public class VaultKeepsService
         _repo = repo;
     }
 
-    public VaultKeep CreateVaultKeep(VaultKeep vaultKeepData)
+    public VaultKeep CreateVaultKeep(VaultKeep vaultKeepData, Vault vault)
     {
+        if (vaultKeepData.CreatorId != vault.CreatorId)
+        {
+            throw new Exception("You cannot add keeps to vaults you do not own");
+        }
         VaultKeep vaultKeep = _repo.CreateVaultKeep(vaultKeepData);
         return vaultKeep;
     }
