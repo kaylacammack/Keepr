@@ -1,9 +1,14 @@
 <template>
     <div class="card text-bg-dark">
-        <img :src="keep.img" class="card-img keepImg" alt="...">
+        <img :src="keep.img" class="card-img keepImg">
         <div class="card-img-overlay">
             <h5 class="card-title keepName ms-2">{{ keep.name }}</h5>
-            <img :src="keep.creator.picture" class="rounded-pill creatorPicture mb-2 me-2">
+
+            <router-link :to="{ name: 'Profile', params: { id: keep.creatorId } }">
+                <img :src="keep.creator.picture" class="rounded-pill creatorPicture mb-2 me-2"
+                    :title="keep.creator.name">
+            </router-link>
+
         </div>
     </div>
 </template>
