@@ -21,12 +21,17 @@ public class KeepsService
         return keeps;
     }
 
-    public Keep GetKeepById(int keepId)
+    public Keep GetKeepById(int keepId, string userId)
     {
         Keep keep = _repo.GetKeepById(keepId);
         if (keep == null)
         {
             throw new Exception($"No keep at id:{keepId}");
+        }
+        if (keep.CreatorId != userId)
+        {
+            keep.Views++;
+            _repo.UpdateKeep(keep);
         }
         return keep;
     }

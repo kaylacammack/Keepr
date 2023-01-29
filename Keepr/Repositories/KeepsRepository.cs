@@ -43,6 +43,7 @@ public class KeepsRepository
     {
         string sql = @"
         SELECT
+        COUNT (vaultId) AS kept,
         k.*,
         a.*
         FROM keeps k
@@ -68,14 +69,6 @@ public class KeepsRepository
         JOIN accounts a ON k.creatorId = a.id
         WHERE vk.vaultId = @vaultId;
         ";
-        // List<VaultKeepViewModel> keeps = _db.Query<VaultKeepViewModel, Keep, Account, VaultKeepViewModel>(sql, (vk, k, a) =>
-        // {
-        //     vk.Creator = a;
-        //     vk.KeepId = k.Id;
-        //     return vk;
-        // }, new { vaultId }).ToList();
-        // return keeps;
-        // return _db.Query<VaultKeepViewModel>(sql, new { vaultId }).ToList();
         List<Keep> keeps = _db.Query<Keep, Account, VaultKeep, Keep>(sql, (k, a, vk) =>
         {
             k.VaultKeepId = vk.Id;
@@ -109,7 +102,8 @@ public class KeepsRepository
         UPDATE keeps SET
         name = @name,
         description = @description,
-        img = @img
+        img = @img,
+        views = @views
         WHERE id = @id;
         ";
         int rows = _db.Execute(sql, update);
