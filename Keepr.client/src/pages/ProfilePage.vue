@@ -1,15 +1,86 @@
 <template>
-    <div class="about">
-        <h1>Hello from the profile page!</h1>
+    <div class="container-fluid">
+        <div v-if="profile" class="row">
+            <div class="col-10">
+                <img :src="profile.coverImg" class="cover-img">
+            </div>
+            <div class="col-10">
+                <img :src="profile.picture" :alt="profile.name" class="img-fluid profile-picture rounded-circle">
+            </div>
+            <div class="col-10">
+                <h1 class="text-center">{{ profile.name }}</h1>
+                <h4 class="text-center">Vaults: {{ profileVaults.length }} || Keeps: {{ profileKeeps.length }}</h4>
+            </div>
+        </div>
     </div>
+
+
+
+
 </template>
 
 <script>
+import { onMounted, computed } from "vue";
+import { useRoute } from "vue-router";
+import { AppState } from "../AppState";
+import { keepsService } from "../services/KeepsService";
+import { profileService } from "../services/ProfileService";
+import { vaultsService } from "../services/VaultsService.js";
+import { logger } from "../utils/Logger";
+import Pop from "../utils/Pop";
+
 export default {
     setup() {
-        return {
+        const route = useRoute();
+        async function getProfileById() {
+            try {
+                await profileService.getProfileById(route.params.profileId);
+            } catch (error) {
+                logger.error(error)
+                Pop.error(error.message)
+            }
+        }
 
+        async function getAllProfileVaults() {
+            try {
+                await vaultsService.getAllProfileVaults(route.params.profileId);
+            } catch (error) {
+                logger.error(error)
+                Pop.error(error.message)
+            }
+        }
+
+        async function getAllProfileKeeps() {
+            try {
+                await keepsService.getAllProfileKeeps(route.params.profileId);
+            } catch (error) {
+                logger.error(error)
+                Pop.error(error.message)
+            }
+        }
+        onMounted(() => {
+            getProfileById();
+            getAllProfileVaults();
+            getAllProfileKeeps();
+        })
+        return {
+            profile: computed(() => AppState.profile),
+            profileVaults: computed(() => AppState.profileVaults),
+            profileKeeps: computed(() => AppState.profileKeeps),
         }
     }
 }
 </script>
+
+<style scoped lang="scss">
+.cover-img {
+    height: 30vh;
+    background-size: cover;
+    background-position: center;
+}
+
+.profile-picture {
+    height: 15vh;
+    width: 15vh;
+}
+</style>

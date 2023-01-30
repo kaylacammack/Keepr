@@ -1,15 +1,13 @@
 <template>
-    <nav class="navbar navbar-expand-lg navbar-dark px-3">
+    <!-- SECTION Home -->
+    <nav class="navbar navbar-expand-lg navbar-dark px-3 d-flex">
         <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
             <button class="btn selectable">Home</button>
         </router-link>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
-            aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarText">
 
-            <!-- LOGIN COMPONENT HERE -->
+
+        <!-- SECTION Login -->
+        <div class="collapse navbar-collapse" id="navbarText">
             <Login />
         </div>
     </nav>

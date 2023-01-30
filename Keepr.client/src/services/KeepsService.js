@@ -14,6 +14,17 @@ class KeepsService {
             logger.error(error)
         }
     }
+
+    async getAllProfileKeeps(profileId) {
+        try {
+            const res = await api.get('api/profiles/' + profileId + '/keeps')
+            logger.log(['Getting profile keeps', res.data])
+            AppState.profileKeeps = res.data
+        } catch (error) {
+            logger.error(error)
+            Pop.error(error.message)
+        }
+    }
 }
 
 export const keepsService = new KeepsService()

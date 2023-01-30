@@ -4,7 +4,7 @@
         <div class="card-img-overlay">
             <h5 class="card-title keepName ms-2">{{ keep.name }}</h5>
 
-            <router-link :to="{ name: 'Profile', params: { id: keep.creatorId } }">
+            <router-link :to="{ name: 'Profile', params: { profileId: keep.creatorId } }">
                 <img :src="keep.creator.picture" class="rounded-pill creatorPicture mb-2 me-2"
                     :title="keep.creator.name">
             </router-link>
