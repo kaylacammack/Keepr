@@ -48,10 +48,10 @@ public class KeepsService
         return _repo.GetAllProfileKeeps(profileId);
     }
 
-    public Keep UpdateKeep(Keep updateData)
+    public Keep UpdateKeep(Keep updateData, string userId)
     {
-        Keep original = GetKeepById(updateData.Id);
-        if (original.CreatorId != updateData.CreatorId) throw new Exception("You may only modify keeps you have created");
+        Keep original = GetKeepById(updateData.Id, userId);
+        if (original.CreatorId != userId) throw new Exception("You may only modify keeps you have created");
         original.Name = updateData.Name ?? original.Name;
         original.Description = updateData.Description ?? original.Description;
         original.Img = updateData.Img ?? original.Img;
