@@ -1,5 +1,4 @@
 <template>
-    <!-- SECTION Keep Cards -->
     <section class="container-fluid">
         <div class="row">
             <div v-for="k in keeps" class="col-12 col-md-3 mb-3 p-4">

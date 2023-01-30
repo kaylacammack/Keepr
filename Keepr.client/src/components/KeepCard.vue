@@ -8,15 +8,16 @@
                 <img :src="keep.creator.picture" class="rounded-pill creatorPicture mb-2 me-2"
                     :title="keep.creator.name">
             </router-link>
-
         </div>
     </div>
 </template>
 
 <script>
+import { Keep } from "../models/Keep";
+
 export default {
     props: {
-        keep: { type: Object, required: true }
+        keep: { type: Keep, required: true }
     },
     setup() {
         return {}

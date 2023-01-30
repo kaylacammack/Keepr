@@ -1,5 +1,6 @@
 <template>
     <div class="container-fluid">
+        <!-- SECTION Profile Information -->
         <div v-if="profile" class="row">
             <div class="col-10">
                 <img :src="profile.coverImg" class="cover-img">
@@ -12,11 +13,21 @@
                 <h4 class="text-center">Vaults: {{ profileVaults.length }} || Keeps: {{ profileKeeps.length }}</h4>
             </div>
         </div>
+        <!-- SECTION Profile Vaults -->
+        <div class="row">
+            <h1 class="text-center">Vaults</h1>
+            <div v-for="v in profileVaults" class="col-12 col-md-3 mb-3 p-4">
+                <VaultCard :vault="v" />
+            </div>
+        </div>
+        <!-- SECTION Profile Keeps -->
+        <div class="row">
+            <h1 class="text-center">Keeps</h1>
+            <div v-for="k in profileKeeps" class="col-12 col-md-3 mb-3 p-4">
+                <KeepCard :keep="k" />
+            </div>
+        </div>
     </div>
-
-
-
-
 </template>
 
 <script>
