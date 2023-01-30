@@ -1,10 +1,12 @@
 <template>
-    <div class="card text-bg-dark">
-        <img :src="vault.img" class="card-img vaultImg">
-        <div class="card-img-overlay">
-            <h5 class="card-title vaultName">{{ vault.name }}</h5>
+    <router-link :to="{ name: 'Vault', params: { vaultId: vault.id } }">
+        <div class="card text-bg-dark">
+            <img :src="vault.img" class="card-img vaultImg">
+            <div class="card-img-overlay">
+                <h5 class="card-title vaultName">{{ vault.name }}</h5>
+            </div>
         </div>
-    </div>
+    </router-link>
 </template>
 
 <script>

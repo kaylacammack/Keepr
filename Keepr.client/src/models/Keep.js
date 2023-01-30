@@ -4,7 +4,7 @@ export class Keep {
         this.creatorId = data.creatorId
         this.description = data.description
         this.keepId = data.id
-        this.keepImg = data.img
+        this.img = data.img
         this.kept = data.kept
         this.name = data.name
         this.vaultKeepId = data.vaultKeepId
