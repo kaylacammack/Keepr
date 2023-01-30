@@ -5,6 +5,12 @@
             <button class="btn selectable">Home</button>
         </router-link>
 
+        <!-- SECTION Create Vault -->
+        <button data-bs-target="#create-vault" data-bs-toggle="modal">Create Vault</button>
+
+        <ModalComponent id="create-vault">
+            <CreateVaultForm />
+        </ModalComponent>
 
         <!-- SECTION Login -->
         <div class="collapse navbar-collapse" id="navbarText">
@@ -15,11 +21,12 @@
 
 <script>
 import Login from './Login.vue'
+import ModalComponent from "./ModalComponent.vue";
 export default {
     setup() {
         return {}
     },
-    components: { Login }
+    components: { Login, ModalComponent }
 }
 </script>
 

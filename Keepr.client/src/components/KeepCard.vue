@@ -1,6 +1,6 @@
 <template>
     <div class="card text-bg-dark">
-        <img :src="keep.img" class="card-img keepImg">
+        <img :src="keep.img" class="card-img keepImg" data-bs-toggle="modal" data-bs-target="keepModal">
         <div class="card-img-overlay">
             <h5 class="card-title keepName ms-2">{{ keep.name }}</h5>
 
@@ -13,14 +13,30 @@
 </template>
 
 <script>
+import { useRoute } from "vue-router";
 import { Keep } from "../models/Keep";
+import { keepsService } from "../services/KeepsService";
+import { logger } from "../utils/Logger";
+import Pop from "../utils/Pop";
 
 export default {
     props: {
-        keep: { type: Keep, required: true }
+        keep: { type: Keep, required: true },
+        user: { type: Object, required: false }
     },
     setup() {
-        return {}
+        const route = useRoute()
+        async function getKeepById(keepId) {
+            try {
+                await keepsService.getKeepById(route.params.keepId)
+            } catch (error) {
+                logger.error(error)
+                Pop.error(error.message)
+            }
+        }
+        return {
+
+        }
     }
 }
 </script>
