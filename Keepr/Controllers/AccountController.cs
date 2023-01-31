@@ -6,13 +6,14 @@ public class AccountController : ControllerBase
 {
     private readonly AccountService _accountService;
     private readonly Auth0Provider _auth0Provider;
-    private readonly VaultsService _vaultService;
+    private readonly VaultsService _vaultsService;
+
 
     public AccountController(AccountService accountService, Auth0Provider auth0Provider, VaultsService vaultsService)
     {
         _accountService = accountService;
         _auth0Provider = auth0Provider;
-        _vaultService = vaultsService;
+        _vaultsService = vaultsService;
     }
 
     [HttpGet]
@@ -37,7 +38,7 @@ public class AccountController : ControllerBase
         try
         {
             Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
-            List<Vault> vaults = _vaultService.GetAllProfileVaults(userInfo.Id, userInfo.Id);
+            List<Vault> vaults = _vaultsService.GetAllProfileVaults(userInfo.Id, userInfo.Id);
             return Ok(vaults);
         }
         catch (Exception e)
@@ -45,4 +46,6 @@ public class AccountController : ControllerBase
             return BadRequest(e.Message);
         }
     }
+
+
 }

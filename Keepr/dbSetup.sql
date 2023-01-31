@@ -8,7 +8,7 @@ CREATE TABLE
         name varchar(255) COMMENT 'User Name',
         email varchar(255) COMMENT 'User Email',
         picture varchar(255) COMMENT 'User Picture',
-        coverImg VARCHAR(255) DEFAULT 'https://www.ukri.org/wp-content/uploads/2022/02/STFC-240222-SpaceGalaxyStars-GettyImages-1035676256.jpg'
+        coverImg TEXT DEFAULT 'https://www.ukri.org/wp-content/uploads/2022/02/STFC-240222-SpaceGalaxyStars-GettyImages-1035676256.jpg'
     ) default charset utf8 COMMENT '';
 
 -- SECTION KEEPS

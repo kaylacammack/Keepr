@@ -28,9 +28,9 @@
                     </div>
 
                     <div class="form-check">
-                        <input v-model="editable.isPrivate" required type="checkbox" class="form-check-input"
-                            value="true" id="isPrivate">
-                        <label class="form-check-label" for="isPrivate">Private</label>
+                        <input v-model="editable.isPrivate" type="checkbox" class="form-check-input" value="false"
+                            id="isPrivate">
+                        <label class="form-check-label" for="isPrivate"> Make Vault Private?</label>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Create Vault</button>
@@ -46,6 +46,7 @@ import { ref } from 'vue';
 import { vaultsService } from "../services/VaultsService";
 import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
+import { Modal } from 'bootstrap';
 export default {
     setup() {
         const editable = ref({})
@@ -55,7 +56,9 @@ export default {
                 try {
                     await vaultsService.createVault(editable.value)
                     logger.log(editable.value)
+                    Pop.toast('Vault Created', 'success')
                     editable.value = {}
+                    Modal.getOrCreateInstance('#createVault').hide()
                 } catch (error) {
                     logger.error(error)
                     Pop.error(error.message)
