@@ -72,4 +72,13 @@ WHERE vk.vaultId = 21;
 SELECT v.*, a.*
 FROM vaults v
     JOIN accounts a ON v.creatorId = a.id
-WHERE v.creatorId = "63c9b1c875f8e740f5723648"
+WHERE
+    v.creatorId = "63c9b1c875f8e740f5723648";
+
+SELECT
+    -- COUNT (vaultId) AS kept,
+    k.*,
+    a.*
+FROM keeps k
+    JOIN accounts a ON a.id = k.creatorId
+WHERE k.id = 1

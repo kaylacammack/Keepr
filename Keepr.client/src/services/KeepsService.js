@@ -25,6 +25,17 @@ class KeepsService {
             Pop.error(error.message)
         }
     }
+
+    async setActiveKeep(keepId) {
+        AppState.activeKeep = {}
+        const keep = await this.getKeepById(keepId)
+        AppState.activeKeep = keep
+    }
+
+    async getKeepById(keepId) {
+        const res = await api.get('api/keeps/' + keepId)
+        return res.data
+    }
 }
 
 export const keepsService = new KeepsService()

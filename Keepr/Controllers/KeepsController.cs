@@ -45,7 +45,7 @@ public class KeepsController : ControllerBase
     }
 
     [HttpGet("{keepId}")]
-    public async Task<ActionResult<Keep>> GetKeepById(int keepId, string userId)
+    public async Task<ActionResult<Keep>> GetKeepById(int keepId)
     {
         try
         {

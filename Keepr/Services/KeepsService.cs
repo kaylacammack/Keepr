@@ -28,11 +28,10 @@ public class KeepsService
         {
             throw new Exception($"No keep at id:{keepId}");
         }
-        if (keep.CreatorId != userId)
-        {
-            keep.Views++;
-            _repo.UpdateKeep(keep);
-        }
+        keep.Views++;
+        _repo.GetKeepById(keepId);
+        _repo.UpdateKeep(keep);
+
         return keep;
     }
 

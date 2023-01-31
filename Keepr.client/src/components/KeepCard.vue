@@ -1,49 +1,60 @@
 <template>
-    <div class="card text-bg-dark">
-        <img :src="keep.img" class="card-img keepImg" data-bs-toggle="modal" data-bs-target="keepModal">
-        <div class="card-img-overlay">
-            <h5 class="card-title keepName ms-2">{{ keep.name }}</h5>
-
+    <div class="container-fluid">
+        <div class="keepImg rounded elevation-3">
+            <img class="img-fluid" :src="keep.img" type="button" @click="setActiveKeep(keep.id)">
+            <h2 class="text-light ps-2">{{ keep.name }}</h2>
             <router-link :to="{ name: 'Profile', params: { profileId: keep.creatorId } }">
-                <img :src="keep.creator.picture" class="rounded-pill creatorPicture mb-2 me-2"
-                    :title="keep.creator.name">
+                <img class="creatorPicture img-fluid" :src="keep.creator.picture" :title="keep.creator.name">
             </router-link>
         </div>
     </div>
 </template>
 
 <script>
-import { useRoute } from "vue-router";
 import { Keep } from "../models/Keep";
 import { keepsService } from "../services/KeepsService";
 import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
+import { ref } from 'vue'
+import { Modal } from "bootstrap";
+import KeepModal from "./KeepModal.vue";
 
 export default {
     props: {
-        keep: { type: Keep, required: true },
+        keep: { type: Object, required: true },
         user: { type: Object, required: false }
     },
-    setup() {
-        const route = useRoute()
-        async function getKeepById(keepId) {
-            try {
-                await keepsService.getKeepById(route.params.keepId)
-            } catch (error) {
-                logger.error(error)
-                Pop.error(error.message)
+    setup(props) {
+
+        return {
+            async setActiveKeep(keepId) {
+                try {
+                    await keepsService.setActiveKeep(keepId);
+                    Modal.getOrCreateInstance(document.getElementById("keep-modal")).toggle();
+                }
+                catch (error) {
+                    logger.error(error)
+                    Pop.error(error.message)
+                }
+            },
+            async getKeepById(keepId) {
+                try {
+                    await keepsService.getKeepById(keepId)
+                } catch (error) {
+                    logger.error(error)
+                    Pop.error(error.message)
+                }
             }
         }
-        return {
-
-        }
-    }
+    },
+    components: { KeepModal }
 }
 </script>
 
 <style scoped lang="scss">
 .keepImg {
-    height: 25vh;
+    position: relative;
+    width: 100%;
 }
 
 .creatorPicture {

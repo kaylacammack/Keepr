@@ -43,7 +43,6 @@ public class KeepsRepository
     {
         string sql = @"
         SELECT
-        COUNT (vaultId) AS kept,
         k.*,
         a.*
         FROM keeps k
