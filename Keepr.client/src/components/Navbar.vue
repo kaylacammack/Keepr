@@ -10,7 +10,13 @@
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createVault">
             Create Vault
         </button>
+
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createKeep">
+            Create Keep
+        </button>
+
         <CreateVaultForm />
+        <CreateKeepForm />
         <!-- SECTION Login -->
         <div class="collapse navbar-collapse" id="navbarText">
             <Login />
@@ -19,12 +25,13 @@
 </template>
 
 <script>
+import CreateKeepForm from "./CreateKeepForm.vue";
 import Login from './Login.vue'
 export default {
     setup() {
         return {}
     },
-    components: { Login }
+    components: { Login, CreateKeepForm }
 }
 </script>
 
