@@ -34,6 +34,7 @@ export default {
         });
         return {
             keeps: computed(() => AppState.keeps),
+            user: computed(() => AppState.user),
         };
     },
     components: { KeepModal }

@@ -91,7 +91,7 @@ export default {
 }
 
 .profile-picture {
-    height: 15vh;
-    width: 15vh;
+    height: 100px;
+    width: 100px;
 }
 </style>

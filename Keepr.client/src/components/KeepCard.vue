@@ -1,13 +1,17 @@
 <template>
-    <div class="container-fluid">
-        <div class="keepImg rounded elevation-3">
-            <img class="img-fluid" :src="keep.img" type="button" @click="setActiveKeep(keep.id)">
-            <h2 class="text-light ps-2">{{ keep.name }}</h2>
+    <div class="card text-bg-dark" type="button" @click="setActiveKeep(keep.id)">
+        <img :src="keep.img" class="card-img keepImg">
+        <div class="card-img-overlay">
+            <h5 class="card-title keepName ms-2">{{ keep.name }}</h5>
+
             <router-link :to="{ name: 'Profile', params: { profileId: keep.creatorId } }">
-                <img class="creatorPicture img-fluid" :src="keep.creator.picture" :title="keep.creator.name">
+                <img :src="keep.creator.picture" class="rounded-pill creatorPicture mb-2 me-2"
+                    :title="keep.creator.name">
             </router-link>
+
         </div>
     </div>
+
 </template>
 
 <script>
@@ -61,13 +65,19 @@ export default {
     height: 50px;
     width: 50px;
     position: absolute;
-    right: 0px;
-    bottom: 0px;
+    right: 16px;
+    bottom: 8px;
 }
 
 .keepName {
     position: absolute;
     bottom: 0;
     left: 0;
+}
+
+.container {
+    position: relative;
+    text-align: center;
+    color: white;
 }
 </style>

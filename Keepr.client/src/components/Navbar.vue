@@ -5,7 +5,12 @@
             <button class="btn selectable">Home</button>
         </router-link>
 
+        <!-- SECTION Create Vault/Keep Form Modal -->
 
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createVault">
+            Create Vault
+        </button>
+        <CreateVaultForm />
         <!-- SECTION Login -->
         <div class="collapse navbar-collapse" id="navbarText">
             <Login />
