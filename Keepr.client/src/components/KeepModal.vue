@@ -10,16 +10,8 @@
 
                         <div class="col-12 col-md-6">
                             <div class="row mt-0 me-3 ">
-                                <div class="col-3 align-self-end dropdown">
-                                    <h5 class="btn dropdown-toggle" type="button" id="dropdownMenuButton"
-                                        title="select a vault" data-bs-toggle="dropdown" aria-expanded="false"><i
-                                            class="mdi mdi-plus-thick"></i> <b> to Vault</b></h5>
-                                    <div class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuButton">
-                                        <div v-for="v in vaults" :key="v.id">
-                                            <h5 class="dropdown-item btn" role="menuitem" :title="v.name"></h5>
-                                        </div>
-                                    </div>
-                                </div>
+
+
                                 <h5 class="col-2 offset-2 align-self-end"><i class="mdi mdi-eye"></i> {{ keep.views }}
                                 </h5>
                                 <h5 class="col-2 align-self-end"><i class="mdi mdi-lock"></i> {{ keep.kept }}</h5>
@@ -31,8 +23,21 @@
                             <div class="modal-body">
                                 <p>{{ keep.description }}</p>
                             </div>
+                            <!-- SECTION Add Keep to Vault -->
+                            <!-- FIXME Vaults drop down doesn't display vaults, add function to add keep to vault -->
+                            <div class="col-3 align-self-end dropdown">
+                                <h5 class="btn dropdown-toggle" type="button" id="dropdownMenuButton"
+                                    title="select a vault" data-bs-toggle="dropdown" aria-expanded="false"><i
+                                        class="mdi mdi-plus-thick"></i> <b> to Vault</b></h5>
+                                <div class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuButton">
+                                    <div v-for="v in vaults" :key="v.id">
+                                        <h5 class="dropdown-item btn" role="menuitem" :title="v.name"></h5>
+                                    </div>
+                                </div>
 
-                            <div v-if="user?.id == keep.creatorId" type="button"
+                            </div>
+                            <!-- TODO  -->
+                            <div v-if="user?.id == keep.creatorId" type="button" @click="deleteKeep(keep.keepId)"
                                 class="mdi mdi-delete-outline mdi-36px trash" title="delete keep"></div>
                             <!-- <router-link v-if="keep.id" :to="{ name: 'Profile', params: { id: keep?.creatorId } }"
                                 title="go to profile" class="profile-link">
@@ -55,6 +60,10 @@
 <script>
 import { computed } from "@vue/reactivity";
 import { AppState } from "../AppState.js";
+import { Keep } from "../models/Keep";
+import { keepsService } from "../services/KeepsService";
+import { logger } from "../utils/Logger";
+import Pop from "../utils/Pop";
 
 export default {
 
@@ -63,29 +72,16 @@ export default {
         return {
             keep: computed(() => AppState.activeKeep),
             user: computed(() => AppState.user),
-            vaults: computed(() => AppState.vaults),
+            vaults: computed(() => AppState.accountVaults),
+            async deleteKeep(keepId) {
+                try {
+                    await keepsService.deleteKeep(keepId)
+                } catch (error) {
+                    logger.error(error)
+                    Pop.error(error.message)
+                }
+            }
 
-            // async deleteKeep(id) {
-            //     try {
-            //         await keepsService.deleteKeep(id);
-            //     }
-            //     catch (error) {
-            //         logger.error(["deleting a keep"], error)
-            //         Pop.error(error);
-            //     }
-            //     document.getElementById("modal-close").click()
-            //     await keepsService.getAllKeeps()
-            // },
-            // async addToVault(vaultId, keepId) {
-            //     try {
-            //         await vaultKeepsService.addToVault(vaultId, keepId)
-            //     }
-            //     catch (error) {
-            //         logger.error(["adding keep to vault"], error)
-            //         Pop.error(error);
-            //     }
-            //     document.getElementById("modal-close").click()
-            // },
         }
     }
 }
@@ -107,7 +103,7 @@ export default {
 }
 
 .trash {
-    color: dodgerblue;
+    color: red;
     position: absolute;
     bottom: 2%;
     right: 1%;
@@ -117,9 +113,5 @@ export default {
         transition: ease-in-out;
         filter: hue-rotate(125deg);
     }
-}
-
-h5 {
-    color: dodgerblue;
 }
 </style>

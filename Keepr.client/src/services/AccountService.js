@@ -1,4 +1,5 @@
 import { AppState } from '../AppState'
+import { Account } from "../models/Account"
 import { logger } from '../utils/Logger'
 import Pop from "../utils/Pop"
 import { api } from './AxiosService'
@@ -22,6 +23,11 @@ class AccountService {
         logger.error(error)
         Pop.error(error.message)
     }
+  }
+
+  async editAccount(body) {
+    const res = await api.put('/account', body)
+    AppState.account = new Account(res.data)
   }
 
 }

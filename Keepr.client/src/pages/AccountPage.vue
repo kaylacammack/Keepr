@@ -2,12 +2,22 @@
     <div class="container-fluid">
         <!-- SECTION Account Information -->
         <div v-if="account" class="row">
+            <!-- FIXME coverImage not displaying -->
             <div class="col-10">
                 <img :src="account.coverImg" class="cover-img">
             </div>
+
             <div class="col-10">
                 <img :src="account.picture" :alt="account.name" class="img-fluid profile-picture rounded-circle">
             </div>
+            <!-- FIXME Edit account gives a 404 error message, backend not set up to support editing account -->
+            <!-- SECTION edit account modal form -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editAccountForm">
+                Edit Account
+            </button>
+
+            <EditAccountForm />
+
             <div class="col-10">
                 <h1 class="text-center">{{ account.name }}</h1>
                 <!-- TODO Add number of vaults & keeps -->
@@ -31,6 +41,7 @@
 <script>
 import { computed, onMounted } from 'vue'
 import { AppState } from '../AppState'
+import EditAccountForm from "../components/EditAccountForm.vue";
 import VaultCard from "../components/VaultCard.vue";
 import { accountService } from "../services/AccountService";
 import { logger } from "../utils/Logger";
@@ -46,14 +57,7 @@ export default {
                 Pop.error(error.message);
             }
         }
-        async function getAllKeeps() {
-            try {
 
-            } catch (error) {
-                logger.error(error);
-                Pop.error(error.message);
-            }
-        }
         onMounted(() => {
             getAllAccountVaults();
         });
@@ -62,7 +66,7 @@ export default {
             accountVaults: computed(() => AppState.accountVaults),
         };
     },
-    components: { VaultCard }
+    components: { VaultCard, EditAccountForm }
 }
 </script>
 
