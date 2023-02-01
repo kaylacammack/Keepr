@@ -36,7 +36,7 @@
 
                             </div>
                             <!-- TODO  -->
-                            <div v-if="user?.id == keep.creatorId" type="button" @click="deleteKeep(keep.keepId)"
+                            <div v-if="user?.id == keep.creatorId" type="button" @click="deleteKeep(keep.id)"
                                 class="mdi mdi-delete-outline mdi-36px trash" title="delete keep"></div>
                             <!-- <router-link v-if="keep.id" :to="{ name: 'Profile', params: { id: keep?.creatorId } }"
                                 title="go to profile" class="profile-link">
@@ -75,10 +75,12 @@ export default {
             async deleteKeep(keepId) {
                 try {
                     await keepsService.deleteKeep(keepId)
+                    Pop.toast("Keep successfully deleted", "success")
                 } catch (error) {
                     logger.error(error)
                     Pop.error(error.message)
                 }
+                document.getElementById("modal-close").click()
             },
             async addKeepToVault(vaultId, keepId) {
                 try {
@@ -88,7 +90,7 @@ export default {
                     logger.error(error)
                     Pop.error(error.message)
                 }
-            }
+            },
         }
     }
 }
