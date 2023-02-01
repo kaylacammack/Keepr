@@ -4,8 +4,10 @@
             <div class="modal-content">
                 <div class="modal-header d-block">
                     <div class="row" v-if="user">
+
                         <img class="col-12 col-md-6 image-fluid draggable-none user-select-none" :src="keep.img"
                             alt="keep image">
+
                         <div class="col-12 col-md-6">
                             <div class="row mt-0 me-3 ">
                                 <h5 class="col-2 offset-2 align-self-end"><i class="mdi mdi-eye"></i> {{ keep.views }}
@@ -25,11 +27,12 @@
                                 <h5 class="btn dropdown-toggle" type="button" id="dropdownMenuButton"
                                     title="select a vault" data-bs-toggle="dropdown" aria-expanded="false"><i
                                         class="mdi mdi-plus-thick"></i> <b> to Vault</b></h5>
-                                <div class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuButton">
+                                <div class="dropdown-menu vaultList" role="menu" aria-labelledby="dropdownMenuButton">
                                     <div v-for="v in vaults" :key="v.id">
                                         <h5 class="dropdown-item btn" role="menuitem" :title="v">{{ v.name }}</h5>
                                     </div>
                                 </div>
+
                             </div>
                             <!-- TODO  -->
                             <div v-if="user?.id == keep.creatorId" type="button" @click="deleteKeep(keep.keepId)"
@@ -42,6 +45,7 @@
                                     <h5 class="ps-2 d-none d-md-block">{{ keep.creator.name }}</h5>
                                 </div>
                             </router-link> -->
+
                         </div>
                     </div>
                 </div>
@@ -53,10 +57,7 @@
 
 <script>
 import { computed } from "@vue/reactivity";
-import { onMounted } from "vue";
 import { AppState } from "../AppState.js";
-import { Keep } from "../models/Keep";
-import { accountService } from "../services/AccountService";
 import { keepsService } from "../services/KeepsService";
 import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
@@ -64,18 +65,6 @@ import Pop from "../utils/Pop";
 export default {
 
     setup() {
-        async function getAllAccountVaults() {
-            try {
-                await accountService.getAllAccountVaults();
-            } catch (error) {
-                logger.error(error);
-                Pop.error(error.message)
-            }
-        }
-        onMounted(() => {
-            getAllAccountVaults();
-        })
-
         return {
             keep: computed(() => AppState.activeKeep),
             user: computed(() => AppState.user),
@@ -120,5 +109,14 @@ export default {
         transition: ease-in-out;
         filter: hue-rotate(125deg);
     }
+}
+
+.vaultList {
+    position: absolute;
+    inset: 0px auto auto 0px;
+    margin: 0px;
+    transform: translate(0px, 40px);
+    overflow-y: scroll;
+    height: 288px;
 }
 </style>
