@@ -29,7 +29,8 @@
                                         class="mdi mdi-plus-thick"></i> <b> to Vault</b></h5>
                                 <div class="dropdown-menu vaultList" role="menu" aria-labelledby="dropdownMenuButton">
                                     <div v-for="v in vaults" :key="v.id">
-                                        <h5 class="dropdown-item btn" role="menuitem" :title="v">{{ v.name }}</h5>
+                                        <h5 class="dropdown-item btn" role="menuitem" :title="v"
+                                            @click="addKeepToVault(v.id, keep.id)">{{ v.name }}</h5>
                                     </div>
                                 </div>
 
@@ -59,6 +60,7 @@
 import { computed } from "@vue/reactivity";
 import { AppState } from "../AppState.js";
 import { keepsService } from "../services/KeepsService";
+import { vaultKeepsService } from "../services/VaultKeepService";
 import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
 
@@ -73,6 +75,15 @@ export default {
             async deleteKeep(keepId) {
                 try {
                     await keepsService.deleteKeep(keepId)
+                } catch (error) {
+                    logger.error(error)
+                    Pop.error(error.message)
+                }
+            },
+            async addKeepToVault(vaultId, keepId) {
+                try {
+                    await vaultKeepsService.addKeepToVault(vaultId, keepId)
+                    Pop.toast("Keep successfully added to vault", "success")
                 } catch (error) {
                     logger.error(error)
                     Pop.error(error.message)
