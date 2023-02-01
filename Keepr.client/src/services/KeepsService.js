@@ -29,7 +29,7 @@ class KeepsService {
         try {
             const res = await api.get('api/profiles/' + profileId + '/keeps')
             logger.log(['Getting profile keeps', res.data])
-            AppState.profileKeeps = res.data
+            AppState.profileKeeps = res.data.map(k => new Keep(k))
         } catch (error) {
             logger.error(error)
             Pop.error(error.message)

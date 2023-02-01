@@ -29,10 +29,12 @@ export default {
                 logger.error(error);
             }
         }
+
         onMounted(() => {
             getAllKeeps();
         });
         return {
+            account: computed(() => AppState.account),
             keeps: computed(() => AppState.keeps),
             user: computed(() => AppState.user),
         };

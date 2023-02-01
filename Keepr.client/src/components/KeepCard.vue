@@ -19,9 +19,11 @@ import { Keep } from "../models/Keep";
 import { keepsService } from "../services/KeepsService";
 import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { Modal } from "bootstrap";
 import KeepModal from "./KeepModal.vue";
+import { AppState } from '../AppState'
+
 
 export default {
     props: {
@@ -31,6 +33,8 @@ export default {
     setup(props) {
 
         return {
+            account: computed(() => AppState.account),
+
             async setActiveKeep(keepId) {
                 try {
                     await keepsService.setActiveKeep(keepId);

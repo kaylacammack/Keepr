@@ -44,6 +44,7 @@ import { AppState } from '../AppState'
 import EditAccountForm from "../components/EditAccountForm.vue";
 import VaultCard from "../components/VaultCard.vue";
 import { accountService } from "../services/AccountService";
+import { vaultsService } from "../services/VaultsService";
 import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
 export default {

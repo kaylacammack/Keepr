@@ -26,6 +26,18 @@ class VaultsService {
         }
     }
 
+    async getVaultById(vaultId) {
+        try {
+            const res = await api.get('api/vaults/' + vaultId)
+            if (res.data == null){
+                throw new Error('No vault found with that Id')
+            } 
+            return res.data
+        } catch (error) {
+            logger.error(error)
+            Pop.error(error.message)
+        }
+    }
    
 
     async GetKeepsByVaultId(vaultId) {
