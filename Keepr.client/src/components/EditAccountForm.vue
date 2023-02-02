@@ -49,6 +49,7 @@ export default {
             async editAccount() {
                 try {
                     await accountService.editAccount(editable.value)
+                    editable.value = {}
                 } catch (error) {
                     logger.error(error)
                     Pop.error(error.message)

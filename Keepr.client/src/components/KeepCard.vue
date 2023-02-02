@@ -1,7 +1,7 @@
 <template>
     <!-- FIXME When clicking on the profile picture it also pulls up the keep card -->
-    <div class="card text-bg-dark" type="button" @click="setActiveKeep(keep.id)">
-        <img :src="keep.img" class="card-img keepImg">
+    <div class="card text-bg-dark">
+        <img :src="keep.img" class="card-img keepImg" type="button" @click="setActiveKeep(keep.id)">
         <div class="card-img-overlay">
             <h5 class="card-title keepName ms-2">{{ keep.name }}</h5>
             <router-link :to="{ name: 'Profile', params: { profileId: keep.creatorId } }">
@@ -60,11 +60,16 @@ export default {
     position: absolute;
     right: 16px;
     bottom: 8px;
+    pointer-events: fill;
 }
 
 .keepName {
     position: absolute;
     bottom: 0;
     left: 0;
+}
+
+.card-img-overlay {
+    pointer-events: none;
 }
 </style>
