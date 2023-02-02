@@ -26,7 +26,7 @@
         <div class="row">
             <h1 class="text-center">Keeps</h1>
             <div v-for="k in profileKeeps" class="col-12 col-md-3 mb-3 p-4">
-                <KeepCard :keep="k" />
+                <ProfileKeepCard :keep="k" />
             </div>
         </div>
     </div>
@@ -36,6 +36,7 @@
 import { onMounted, computed } from "vue";
 import { useRoute } from "vue-router";
 import { AppState } from "../AppState";
+import ProfileKeepCard from "../components/ProfileKeepCard.vue";
 import { keepsService } from "../services/KeepsService";
 import { profileService } from "../services/ProfileService";
 import { vaultsService } from "../services/VaultsService.js";
@@ -48,40 +49,43 @@ export default {
         async function getProfileById() {
             try {
                 await profileService.getProfileById(route.params.profileId);
-            } catch (error) {
-                logger.error(error)
-                Pop.error(error.message)
+            }
+            catch (error) {
+                logger.error(error);
+                Pop.error(error.message);
             }
         }
-
         async function getAllProfileVaults() {
             try {
                 await vaultsService.getAllProfileVaults(route.params.profileId);
-            } catch (error) {
-                logger.error(error)
-                Pop.error(error.message)
+            }
+            catch (error) {
+                logger.error(error);
+                Pop.error(error.message);
             }
         }
-
         async function getAllProfileKeeps() {
             try {
                 await keepsService.getAllProfileKeeps(route.params.profileId);
-            } catch (error) {
-                logger.error(error)
-                Pop.error(error.message)
+            }
+            catch (error) {
+                logger.error(error);
+                Pop.error(error.message);
             }
         }
         onMounted(() => {
             getProfileById();
             getAllProfileVaults();
             getAllProfileKeeps();
-        })
+        });
         return {
             profile: computed(() => AppState.profile),
+            user: computed(() => AppState.user),
             profileVaults: computed(() => AppState.profileVaults),
             profileKeeps: computed(() => AppState.profileKeeps),
-        }
-    }
+        };
+    },
+    components: { ProfileKeepCard }
 }
 </script>
 

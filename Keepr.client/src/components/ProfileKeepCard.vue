@@ -1,26 +1,25 @@
 <template>
-    <!-- FIXME When clicking on the profile picture it also pulls up the keep card -->
-    <div class="card text-bg-dark" type="button" @click="setActiveKeep(keep.id)">
+    <div class="card text-bg-dark" type="button" @click="setActiveKeep(keep.keepId)">
         <img :src="keep.img" class="card-img keepImg">
         <div class="card-img-overlay">
             <h5 class="card-title keepName ms-2">{{ keep.name }}</h5>
-            <router-link :to="{ name: 'Profile', params: { profileId: keep.creatorId } }">
-                <img :src="keep.creator.picture" class="rounded-pill creatorPicture mb-2 me-2"
-                    :title="keep.creator.name">
-            </router-link>
+            <div v-if="user?.id == keep.creatorId" type="button" @click="deleteKeep(keep.keepId)"
+                class="mdi mdi-delete-outline mdi-36px trash" title="Delete Keep"></div>
+
         </div>
     </div>
-
 </template>
 
+
+
 <script>
+import { AppState } from "../AppState";
 import { keepsService } from "../services/KeepsService";
 import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
-import { ref, computed } from 'vue'
 import { Modal } from "bootstrap";
-import KeepModal from "./KeepModal.vue";
-import { AppState } from '../AppState'
+import { computed } from "vue";
+import VaultKeepModal from "./VaultKeepModal.vue";
 
 
 export default {
@@ -29,22 +28,32 @@ export default {
         user: { type: Object, required: false }
     },
     setup() {
-
         return {
             account: computed(() => AppState.account),
+            user: computed(() => AppState.user),
             async setActiveKeep(keepId) {
                 try {
                     await keepsService.setActiveKeep(keepId);
-                    Modal.getOrCreateInstance(document.getElementById("keep-modal")).toggle();
+                    Modal.getOrCreateInstance(document.getElementById("vaultKeepModal")).toggle();
                 }
                 catch (error) {
+                    logger.error(error);
+                    Pop.error(error.message);
+                }
+            },
+            async deleteKeep(keepId) {
+                try {
+                    await keepsService.deleteKeep(keepId)
+                    Pop.toast("Keep successfully deleted", "success")
+
+                } catch (error) {
                     logger.error(error)
                     Pop.error(error.message)
                 }
-            },
-        }
+            }
+        };
     },
-    components: { KeepModal }
+    components: { VaultKeepModal }
 }
 </script>
 
@@ -66,5 +75,12 @@ export default {
     position: absolute;
     bottom: 0;
     left: 0;
+}
+
+.trash {
+    color: red;
+    position: absolute;
+    bottom: 2%;
+    right: 1%;
 }
 </style>

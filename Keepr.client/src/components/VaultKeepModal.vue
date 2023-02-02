@@ -1,4 +1,5 @@
 <template>
+    <!-- FIXME When clicking on the profile picture it also pulls up the keep card -->
     <div class="modal fade" id="vaultKeepModal" tabindex="-1" aria-labelledby="vaultKeepModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -34,6 +35,7 @@
 
 <script>
 import { AppState } from "../AppState";
+import { computed } from "vue";
 
 export default {
     setup() {
