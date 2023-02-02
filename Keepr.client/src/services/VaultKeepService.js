@@ -12,8 +12,8 @@ class VaultKeepsService {
         await keepsService.getKeepById(keepId)
         vaultKeep.keepId = keepId
         vaultKeep.vaultId = vaultId
-        await api.post('api/vaultkeeps', vaultKeep)
-        AppState.vaultKeeps = [new VaultKeep(res.data), ...AppState.vaultKeeps]
+        const res = await api.post('api/vaultkeeps', vaultKeep)
+        AppState.vaultKeeps = new VaultKeep(res.data)
     }
 }
 export const vaultKeepsService = new VaultKeepsService()

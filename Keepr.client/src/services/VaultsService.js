@@ -9,7 +9,8 @@ class VaultsService {
     async createVault(vaultData) {
         try {
             const res = await api.post('api/vaults', vaultData)
-            AppState.vaults.push(new Vault(res.data))
+            AppState.vaults = [new Vault(res.data), ...AppState.vaults]
+            
         } catch (error) {
             logger.error(error)
             Pop.error(error.message)
