@@ -2,6 +2,7 @@
     <section class="container-fluid">
         <div class="row">
             <div v-for="k in keeps" class="col-12 col-md-3 mb-3 p-4">
+                <!-- FIXME when clicking on profile image it directs to the profile page but tries to open the modal at the same time and gives an error "Cannot read properties of undefined (reading 'backdrop')" -->
                 <KeepCard :keep="k" />
             </div>
         </div>

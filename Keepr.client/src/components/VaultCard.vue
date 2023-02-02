@@ -5,19 +5,42 @@
             <div class="card-img-overlay">
                 <h5 class="card-title vaultName">{{ vault.name }}</h5>
             </div>
+            <div v-if="user?.id == vault.creatorId" type="button" @click="deleteVault(vault.id)"
+                class="mdi mdi-delete-outline trash" title="Delete Vault"></div>
         </div>
     </router-link>
 </template>
 
 <script>
-import { Vault } from "../models/Vault";
+import { AppState } from "../AppState";
+import { vaultsService } from "../services/VaultsService";
+import { logger } from "../utils/Logger";
+import Pop from "../utils/Pop";
+import { computed } from "vue";
+import { useRoute } from "vue-router";
+import { router } from "../router";
 
 export default {
     props: {
-        vault: { type: Vault, required: true }
+        vault: { type: Object, required: true }
     },
     setup() {
-        return {}
+        const route = useRoute();
+        return {
+            user: computed(() => AppState.user),
+            async deleteVault(vaultId) {
+                try {
+                    if (await Pop.confirm()) {
+                        await vaultsService.deleteVault(vaultId)
+                        Pop.toast("Vault successfully deleted", "success")
+                        router.push({ name: "Account" })
+                    }
+                } catch (error) {
+                    logger.error(error)
+                    Pop.error(error.message)
+                }
+            }
+        }
     }
 }
 </script>
@@ -31,5 +54,12 @@ export default {
     position: absolute;
     bottom: 0;
     left: 0;
+}
+
+.trash {
+    color: red;
+    position: absolute;
+    bottom: 2%;
+    right: 1%;
 }
 </style>

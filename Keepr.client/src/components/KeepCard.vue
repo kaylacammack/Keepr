@@ -1,21 +1,19 @@
 <template>
+    <!-- FIXME When clicking on the profile picture it also pulls up the keep card -->
     <div class="card text-bg-dark" type="button" @click="setActiveKeep(keep.id)">
         <img :src="keep.img" class="card-img keepImg">
         <div class="card-img-overlay">
             <h5 class="card-title keepName ms-2">{{ keep.name }}</h5>
-
             <router-link :to="{ name: 'Profile', params: { profileId: keep.creatorId } }">
                 <img :src="keep.creator.picture" class="rounded-pill creatorPicture mb-2 me-2"
                     :title="keep.creator.name">
             </router-link>
-
         </div>
     </div>
 
 </template>
 
 <script>
-import { Keep } from "../models/Keep";
 import { keepsService } from "../services/KeepsService";
 import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
@@ -30,11 +28,10 @@ export default {
         keep: { type: Object, required: true },
         user: { type: Object, required: false }
     },
-    setup(props) {
+    setup() {
 
         return {
             account: computed(() => AppState.account),
-
             async setActiveKeep(keepId) {
                 try {
                     await keepsService.setActiveKeep(keepId);

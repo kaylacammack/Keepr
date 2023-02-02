@@ -12,7 +12,8 @@
             </div>
             <!-- FIXME Edit account gives a 404 error message, backend not set up to support editing account -->
             <!-- SECTION edit account modal form -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editAccountForm">
+            <button type="button" class="btn btn-primary col-3" data-bs-toggle="modal"
+                data-bs-target="#editAccountForm">
                 Edit Account
             </button>
 

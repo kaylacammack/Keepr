@@ -4,10 +4,10 @@
             <div class="modal-content">
                 <div class="modal-header d-block">
                     <div class="row" v-if="user">
-
+                        <!-- SECTION keep img -->
                         <img class="col-12 col-md-6 image-fluid draggable-none user-select-none" :src="keep.img"
                             alt="keep image">
-
+                        <!-- SECTION keep details -->
                         <div class="col-12 col-md-6">
                             <div class="row mt-0 me-3 ">
                                 <h5 class="col-2 offset-2 align-self-end"><i class="mdi mdi-eye"></i> {{ keep.views }}
@@ -22,7 +22,8 @@
                                 <p>{{ keep.description }}</p>
                             </div>
                             <!-- SECTION Add Keep to Vault -->
-                            <!-- FIXME Vaults drop down doesn't display vaults, add function to add keep to vault -->
+                            <!-- TODO Update kept count anytime a keep is added to a vault -->
+                            <!-- TODO Align drop down to bottom left of column -->
                             <div class="col-3 align-self-end dropdown">
                                 <h5 class="btn dropdown-toggle" type="button" id="dropdownMenuButton"
                                     title="select a vault" data-bs-toggle="dropdown" aria-expanded="false"><i
@@ -30,23 +31,17 @@
                                 <div class="dropdown-menu vaultList" role="menu" aria-labelledby="dropdownMenuButton">
                                     <div v-for="v in vaults" :key="v.id">
                                         <h5 class="dropdown-item btn" role="menuitem" :title="v"
-                                            @click="addKeepToVault(v.id, keep.id)">{{ v.name }}</h5>
+                                            @click="addKeepToVault(v.id, keep.id)">
+                                            {{ v.name }}
+                                        </h5>
                                     </div>
                                 </div>
 
                             </div>
-                            <!-- TODO  -->
+                            <!-- SECTION delete keep -->
                             <div v-if="user?.id == keep.creatorId" type="button" @click="deleteKeep(keep.id)"
-                                class="mdi mdi-delete-outline mdi-36px trash" title="delete keep"></div>
-                            <!-- <router-link v-if="keep.id" :to="{ name: 'Profile', params: { id: keep?.creatorId } }"
-                                title="go to profile" class="profile-link">
-                                <div class="keep-modal-profile-img d-flex align-items-center" data-bs-dismiss="modal">
-                                    <img class="img-fluid rounded" :src="keep.creator.picture" alt="profile picture"
-                                        :title="keep.creator.name">
-                                    <h5 class="ps-2 d-none d-md-block">{{ keep.creator.name }}</h5>
-                                </div>
-                            </router-link> -->
-
+                                class="mdi mdi-delete-outline mdi-36px trash" title="delete keep">
+                            </div>
                         </div>
                     </div>
                 </div>

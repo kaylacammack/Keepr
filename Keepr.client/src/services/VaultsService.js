@@ -50,5 +50,10 @@ class VaultsService {
             Pop.error(error.message)
         }
     }
+
+    async deleteVault(vaultId) {
+        await api.delete('api/vaults/' + vaultId)
+        AppState.accountVaults = AppState.accountVaults.filter(v => v.id != vaultId)
+    }
 }
 export const vaultsService = new VaultsService()
