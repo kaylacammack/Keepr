@@ -1,5 +1,4 @@
 <template>
-    <!-- FIXME When clicking on the profile picture it also pulls up the keep card -->
     <div class="card text-bg-dark">
         <img :src="keep.img" class="card-img keepImg" type="button" @click="setActiveKeep(keep.id)">
         <div class="card-img-overlay">

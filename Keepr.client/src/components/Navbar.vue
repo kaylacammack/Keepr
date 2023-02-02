@@ -6,7 +6,7 @@
         </router-link>
 
         <!-- SECTION Create Vault/Keep Form Modal -->
-
+        <!-- TODO Have drop down button to create vault/keep -->
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createVault">
             Create Vault
         </button>
@@ -18,6 +18,7 @@
         <CreateVaultForm />
         <CreateKeepForm />
         <!-- SECTION Login -->
+        <!-- TODO Have login display in far right corner and change styling so it's not a light green -->
         <div class="collapse navbar-collapse" id="navbarText">
             <Login />
         </div>

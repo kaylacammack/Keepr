@@ -32,7 +32,7 @@ class VaultsService {
             if (res.data == null){
                 throw new Error('No vault found with that Id')
             } 
-            return res.data
+            AppState.activeVault = res.data
         } catch (error) {
             logger.error(error)
             Pop.error(error.message)

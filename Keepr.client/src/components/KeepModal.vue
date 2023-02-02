@@ -4,9 +4,11 @@
             <div class="modal-content">
                 <div class="modal-header d-block">
                     <div class="row">
+
                         <!-- SECTION keep img -->
                         <img class="col-12 col-md-6 image-fluid draggable-none user-select-none" :src="keep.img"
                             alt="keep image">
+
                         <!-- SECTION keep details -->
                         <div class="col-12 col-md-6">
                             <div class="row mt-0 me-3 ">
@@ -24,6 +26,7 @@
                             <!-- SECTION Add Keep to Vault -->
                             <!-- TODO Update kept count anytime a keep is added to a vault -->
                             <!-- TODO Align drop down to bottom left of column -->
+
                             <div v-if="user" class="col-3 align-self-end dropdown">
                                 <h5 class="btn dropdown-toggle" type="button" id="dropdownMenuButton"
                                     title="select a vault" data-bs-toggle="dropdown" aria-expanded="false"><i
@@ -40,10 +43,12 @@
                                 </div>
                             </div>
 
-                            <!-- <router-link :to="{ name: 'Profile', params: { profileId: keep.creatorId } }">
-                                <img :src="keep.creator.picture" class="rounded-pill creatorPicture mb-2 me-2"
-                                    :title="keep.creator.name">
-                            </router-link> -->
+                            <div v-if="keep.creatorId">
+                                <router-link :to="{ name: 'Profile', params: { profileId: keep.creatorId } }">
+                                    <img :src="keep.creator.picture" class="rounded-pill creatorPicture mb-2 me-2"
+                                        :title="keep.creator.name">
+                                </router-link>
+                            </div>
 
                             <!-- SECTION delete keep -->
                             <!-- <div v-if="user?.id == keep.creatorId" type="button" @click="deleteKeep(keep.id)"

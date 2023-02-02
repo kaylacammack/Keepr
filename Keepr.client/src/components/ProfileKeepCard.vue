@@ -1,12 +1,13 @@
 <template>
-    <div class="card text-bg-dark" type="button" @click="setActiveKeep(keep.keepId)">
-        <img :src="keep.img" class="card-img keepImg">
+    <div class="card text-bg-dark">
+        <img :src="keep.img" class="card-img keepImg" type="button" @click="setActiveKeep(keep.keepId)">
         <div class="card-img-overlay">
             <h5 class="card-title keepName ms-2">{{ keep.name }}</h5>
 
         </div>
         <div v-if="user?.id == keep.creatorId" type="button" @click="deleteKeep(keep.keepId)"
-            class="mdi mdi-delete-outline mdi-36px trash" title="Delete Keep"></div>
+            class="mdi mdi-delete-outline mdi-36px trash" title="Delete Keep">
+        </div>
     </div>
 </template>
 
@@ -83,5 +84,9 @@ export default {
     position: absolute;
     bottom: 2%;
     right: 1%;
+}
+
+.card-img-overlay {
+    pointer-events: none;
 }
 </style>

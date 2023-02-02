@@ -2,9 +2,12 @@
     <div class="container-fluid">
         <!-- SECTION Profile Information -->
         <div v-if="profile" class="row">
-            <!-- FIXME coverImg not displaying -->
-            <div class="col-10">
+            <!-- TODO Center and have img stretch across 10 columns -->
+            <div class="col-10" v-if="profile.coverImg">
                 <img :src="profile.coverImg" class="cover-img">
+            </div>
+            <div v-else class="col-10 alt-cover-img">
+
             </div>
             <!-- TODO fix profile picture to be centered and partially covering coverImg -->
             <div class="col-10">
@@ -30,12 +33,14 @@
             </div>
         </div>
     </div>
+    <KeepModal />
 </template>
 
 <script>
 import { onMounted, computed } from "vue";
 import { useRoute } from "vue-router";
 import { AppState } from "../AppState";
+import KeepModal from "../components/KeepModal.vue";
 import ProfileKeepCard from "../components/ProfileKeepCard.vue";
 import { keepsService } from "../services/KeepsService";
 import { profileService } from "../services/ProfileService";
@@ -85,13 +90,13 @@ export default {
             profileKeeps: computed(() => AppState.profileKeeps),
         };
     },
-    components: { ProfileKeepCard }
+    components: { ProfileKeepCard, KeepModal }
 }
 </script>
 
 <style scoped lang="scss">
 .cover-img {
-    height: 30vh;
+    max-height: 30vh;
     background-size: cover;
     background-position: center;
 }
@@ -99,5 +104,12 @@ export default {
 .profile-picture {
     height: 100px;
     width: 100px;
+}
+
+.alt-cover-img {
+    background-image: url('https: //images.unsplash.com/photo-1502134249126-9f3755a50d78?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80');
+    background-position: center;
+    background-size: cover;
+    height: 30vh;
 }
 </style>
