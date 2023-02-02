@@ -39,9 +39,9 @@
 
                             </div>
                             <!-- SECTION delete keep -->
-                            <div v-if="user?.id == keep.creatorId" type="button" @click="deleteKeep(keep.id)"
+                            <!-- <div v-if="user?.id == keep.creatorId" type="button" @click="deleteKeep(keep.id)"
                                 class="mdi mdi-delete-outline mdi-36px trash" title="delete keep">
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
