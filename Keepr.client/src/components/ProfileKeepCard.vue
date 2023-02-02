@@ -3,10 +3,10 @@
         <img :src="keep.img" class="card-img keepImg">
         <div class="card-img-overlay">
             <h5 class="card-title keepName ms-2">{{ keep.name }}</h5>
-            <div v-if="user?.id == keep.creatorId" type="button" @click="deleteKeep(keep.keepId)"
-                class="mdi mdi-delete-outline mdi-36px trash" title="Delete Keep"></div>
 
         </div>
+        <div v-if="user?.id == keep.creatorId" type="button" @click="deleteKeep(keep.keepId)"
+            class="mdi mdi-delete-outline mdi-36px trash" title="Delete Keep"></div>
     </div>
 </template>
 
@@ -19,7 +19,8 @@ import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
 import { Modal } from "bootstrap";
 import { computed } from "vue";
-import VaultKeepModal from "./VaultKeepModal.vue";
+import KeepModal from "./KeepModal.vue";
+
 
 
 export default {
@@ -34,7 +35,7 @@ export default {
             async setActiveKeep(keepId) {
                 try {
                     await keepsService.setActiveKeep(keepId);
-                    Modal.getOrCreateInstance(document.getElementById("vaultKeepModal")).toggle();
+                    Modal.getOrCreateInstance(document.getElementById("keep-modal")).toggle();
                 }
                 catch (error) {
                     logger.error(error);
@@ -53,7 +54,7 @@ export default {
             }
         };
     },
-    components: { VaultKeepModal }
+    components: { KeepModal }
 }
 </script>
 

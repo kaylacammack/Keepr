@@ -23,7 +23,9 @@
                                 <p>{{ keep.description }}</p>
                             </div>
                             <!-- SECTION remove keep from vault -->
-
+                            <div v-if="user?.id == keep.creatorId" type="button"
+                                @click="removeKeepFromVault(keep.vaultKeepId)" class="mdi mdi-lock-remove mdi-36px"
+                                title="Remove Keep From Vault"></div>
                         </div>
                     </div>
                 </div>
@@ -36,6 +38,9 @@
 <script>
 import { AppState } from "../AppState";
 import { computed } from "vue";
+import { logger } from "../utils/Logger";
+import Pop from "../utils/Pop";
+import { vaultKeepsService } from "../services/VaultKeepService";
 
 export default {
     setup() {
@@ -43,6 +48,15 @@ export default {
             keep: computed(() => AppState.activeKeep),
             user: computed(() => AppState.user),
             account: computed(() => AppState.account),
+            async removeKeepFromVault(vaultKeepId) {
+                try {
+                    await vaultKeepsService.removeKeepFromVault(vaultKeepId)
+                    Pop.toast("Keep successfully removed from vault", "success")
+                } catch (error) {
+                    logger.error(error)
+                    Pop.error(error.message)
+                }
+            }
         }
     }
 }

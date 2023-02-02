@@ -6,7 +6,7 @@
                 <h5 class="card-title vaultName">{{ vault.name }}</h5>
             </div>
             <div v-if="user?.id == vault.creatorId" type="button" @click="deleteVault(vault.id)"
-                class="mdi mdi-key-remove trash" title="Delete Vault"></div>
+                class="mdi mdi-delete-outline mdi-36px trash" title="Delete Vault"></div>
         </div>
     </router-link>
 </template>

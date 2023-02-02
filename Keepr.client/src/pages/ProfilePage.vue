@@ -6,7 +6,7 @@
             <div class="col-10">
                 <img :src="profile.coverImg" class="cover-img">
             </div>
-            <!-- FIXME fix profile picture to be centered and partially covering coverImg -->
+            <!-- TODO fix profile picture to be centered and partially covering coverImg -->
             <div class="col-10">
                 <img :src="profile.picture" :alt="profile.name" class="img-fluid profile-picture rounded-circle">
             </div>

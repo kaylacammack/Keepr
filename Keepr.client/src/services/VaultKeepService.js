@@ -1,3 +1,5 @@
+import { AppState } from "../AppState"
+import { VaultKeep } from "../models/VaultKeep"
 import Pop from "../utils/Pop"
 import { api } from "./AxiosService"
 import { keepsService } from "./KeepsService"
@@ -11,7 +13,7 @@ class VaultKeepsService {
         vaultKeep.keepId = keepId
         vaultKeep.vaultId = vaultId
         await api.post('api/vaultkeeps', vaultKeep)
-        Pop.toast('Keep successfully added to vault', "success")
+        AppState.vaultKeeps = [new VaultKeep(res.data), ...AppState.vaultKeeps]
     }
 }
 export const vaultKeepsService = new VaultKeepsService()

@@ -3,7 +3,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header d-block">
-                    <div class="row" v-if="user">
+                    <div class="row">
                         <!-- SECTION keep img -->
                         <img class="col-12 col-md-6 image-fluid draggable-none user-select-none" :src="keep.img"
                             alt="keep image">
@@ -24,7 +24,7 @@
                             <!-- SECTION Add Keep to Vault -->
                             <!-- TODO Update kept count anytime a keep is added to a vault -->
                             <!-- TODO Align drop down to bottom left of column -->
-                            <div class="col-3 align-self-end dropdown">
+                            <div v-if="user" class="col-3 align-self-end dropdown">
                                 <h5 class="btn dropdown-toggle" type="button" id="dropdownMenuButton"
                                     title="select a vault" data-bs-toggle="dropdown" aria-expanded="false"><i
                                         class="mdi mdi-plus-thick"></i> <b> to Vault</b></h5>
@@ -35,9 +35,16 @@
                                             {{ v.name }}
                                         </h5>
                                     </div>
-                                </div>
 
+
+                                </div>
                             </div>
+
+                            <!-- <router-link :to="{ name: 'Profile', params: { profileId: keep.creatorId } }">
+                                <img :src="keep.creator.picture" class="rounded-pill creatorPicture mb-2 me-2"
+                                    :title="keep.creator.name">
+                            </router-link> -->
+
                             <!-- SECTION delete keep -->
                             <!-- <div v-if="user?.id == keep.creatorId" type="button" @click="deleteKeep(keep.id)"
                                 class="mdi mdi-delete-outline mdi-36px trash" title="delete keep">
@@ -126,5 +133,13 @@ export default {
     transform: translate(0px, 40px);
     overflow-y: scroll;
     height: 288px;
+}
+
+.creatorPicture {
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    right: 16px;
+    bottom: 8px;
 }
 </style>
