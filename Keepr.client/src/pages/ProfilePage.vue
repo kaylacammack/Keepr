@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid">
+    <div class="container-fluid text-shadow">
         <!-- SECTION Profile Information -->
         <div v-if="profile" class="row">
             <!-- TODO Center and have img stretch across 10 columns -->
@@ -111,5 +111,9 @@ export default {
     background-position: center;
     background-size: cover;
     height: 30vh;
+}
+
+.text-shadow {
+    text-shadow: 2px 2px 4px #363636;
 }
 </style>

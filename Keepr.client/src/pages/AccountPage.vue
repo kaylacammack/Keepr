@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid">
+    <div class="container-fluid text-shadow">
         <!-- SECTION Account Information -->
         <div v-if="account" class="row">
             <div class="col-10">
@@ -83,5 +83,9 @@ export default {
 .profile-picture {
     height: 100px;
     width: 100px;
+}
+
+.text-shadow {
+    text-shadow: 2px 2px 4px #363636;
 }
 </style>

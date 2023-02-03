@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid" v-if="vaultKeeps">
+    <div class="container-fluid text-shadow" v-if="vaultKeeps">
         <div class="row bg-image align-items-center">
             <div class="col-10">
                 <h1 class="ms-4 text-center text-light">
@@ -81,5 +81,9 @@ export default {
     background-image: v-bind(vaultImg);
     background-size: cover;
     background-position: center;
+}
+
+.text-shadow {
+    text-shadow: 2px 2px 4px #363636;
 }
 </style>

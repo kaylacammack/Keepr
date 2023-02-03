@@ -2,7 +2,7 @@
     <!-- SECTION Home -->
     <nav class="navbar navbar-expand-lg navbar-dark px-3 d-flex">
         <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
-            <button class="btn selectable">Home</button>
+            <button class="btn btn-primary selectable">Home</button>
         </router-link>
 
         <!-- SECTION Create Vault/Keep Form Modal -->
