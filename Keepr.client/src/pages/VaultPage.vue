@@ -12,7 +12,7 @@
         </h4>
         <div class="row">
             <div v-for="k in vaultKeeps" class="col-12 col-md-3 mb-3 p-4">
-                <ProfileKeepCard :keep="k" />
+                <VaultKeepCard :keep="k" />
             </div>
         </div>
     </div>
@@ -30,8 +30,8 @@ import { vaultsService } from "../services/VaultsService";
 import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
 import { AppState } from "../AppState";
-import ProfileKeepCard from "../components/ProfileKeepCard.vue";
 import { router } from "../router.js";
+import VaultKeepCard from "../components/VaultKeepCard.vue";
 
 export default {
     setup() {
@@ -67,7 +67,7 @@ export default {
             isPrivate,
         };
     },
-    components: { ProfileKeepCard }
+    components: { VaultKeepCard }
 }
 </script>
 
