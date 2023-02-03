@@ -24,12 +24,17 @@ public class KeepsRepository
 
     public List<Keep> GetAllKeeps()
     {
+        // FIXME add the COUNT statement for getting the vaultkeeps
+        // reference reviewCount or cultMembers 
         string sql = @"
         SELECT
-        k.*,
-        a.*
+            COUNT(vk.id) as kept,
+            k.*,
+            a.*
         FROM keeps k
-        JOIN accounts a ON a.id = k.creatorId
+            LEFT JOIN vaultkeeps vk ON k.id = vk.keepId
+            JOIN accounts a ON a.id = k.creatorId
+        GROUP BY k.id
         ";
         List<Keep> keeps = _db.Query<Keep, Account, Keep>(sql, (k, a) =>
         {
@@ -41,17 +46,24 @@ public class KeepsRepository
 
     public Keep GetKeepById(int keepId)
     {
+        // FIXME add the same type of COUNT here
         string sql = @"
         SELECT
+        COUNT(vk.id) as kept,
         k.*,
         a.*
         FROM keeps k
+        LEFT JOIN vaultkeeps vk ON k.id = vk.keepId
         JOIN accounts a ON a.id = k.creatorId
         WHERE k.id = @keepId
         ";
         Keep keep = _db.Query<Keep, Account, Keep>(sql, (k, a) =>
         {
             k.Creator = a;
+            if (k.Name == null)
+            {
+                return null;
+            }
             return k;
         }, new { keepId }).FirstOrDefault();
         return keep;

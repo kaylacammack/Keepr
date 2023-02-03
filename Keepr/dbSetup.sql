@@ -23,7 +23,6 @@ CREATE TABLE
         description TEXT NOT NULL,
         img VARCHAR(255) NOT NULL,
         views INT NOT NULL DEFAULT 0,
-        vaultKeepId INT,
         FOREIGN KEY (creatorId) REFERENCES accounts (id) ON DELETE CASCADE
     ) default charset utf8 COMMENT '';
 
@@ -83,4 +82,15 @@ SELECT
     a.*
 FROM keeps k
     JOIN accounts a ON a.id = k.creatorId
-WHERE k.id = 1
+WHERE k.id = 1;
+
+SELECT
+    COUNT(vk.id) as kept,
+    k.*,
+    a.*
+FROM keeps k
+    LEFT JOIN vaultkeeps vk ON k.id = vk.keepId
+    JOIN accounts a ON a.id = k.creatorId
+GROUP BY k.id;
+
+DELETE from keeps WHERE id = 1 

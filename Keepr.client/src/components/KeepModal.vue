@@ -44,6 +44,7 @@
                             </div>
 
                             <div v-if="keep.creatorId">
+                                <!-- FIXME close the modal remember data-bs-dismiss -->
                                 <router-link :to="{ name: 'Profile', params: { profileId: keep.creatorId } }">
                                     <img :src="keep.creator.picture" class="rounded-pill creatorPicture mb-2 me-2"
                                         :title="keep.creator.name">

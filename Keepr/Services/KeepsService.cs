@@ -63,7 +63,7 @@ public class KeepsService
     public string RemoveKeep(int keepId, string userId)
     {
         Keep keep = _repo.GetKeepById(keepId);
-        if (keep == null) throw new Exception($"No keep at id {keepId}");
+        if (keep.CreatorId == null) throw new Exception($"No keep at id {keepId}");
         if (keep.CreatorId != userId) throw new Exception("You cannot delete a keep you did not create");
         bool result = _repo.RemoveKeep(keepId);
         if (result == false) throw new Exception($"No keep at id: {keepId}");

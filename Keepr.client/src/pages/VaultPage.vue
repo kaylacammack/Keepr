@@ -10,8 +10,10 @@
         <h4 class="text-center">
             {{ vaultKeeps.length }} Keeps
         </h4>
-        <div v-for="k in vaultKeeps" class="col-12 col-md-3 mb-3 p-4">
-            <ProfileKeepCard :keep="k" />
+        <div class="row">
+            <div v-for="k in vaultKeeps" class="col-12 col-md-3 mb-3 p-4">
+                <ProfileKeepCard :keep="k" />
+            </div>
         </div>
     </div>
 </template>
@@ -34,6 +36,8 @@ export default {
             } catch (error) {
                 logger.error(error)
                 Pop.error(error.message)
+                // FIXME if there is an error
+                // you might need to send them away...
             }
         }
         async function GetKeepsByVaultId() {

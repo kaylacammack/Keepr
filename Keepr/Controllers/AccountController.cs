@@ -47,5 +47,20 @@ public class AccountController : ControllerBase
         }
     }
 
-
+    // FIXME add HTTPPUT for edit account
+    [HttpPut]
+    [Authorize]
+    public async Task<ActionResult<Account>> Edit([FromBody] Account editData)
+    {
+        try
+        {
+            Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+            Account account = _accountService.Edit(editData, userInfo.Email);
+            return Ok(account);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
 }

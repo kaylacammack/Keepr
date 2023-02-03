@@ -20,6 +20,8 @@ const routes = [
     path: '/vaults/:vaultId',
     name: 'Vault',
     component: loadPage('VaultPage')
+    // FIXME you are missing a router guard here.... 
+    // reference help reviews
   },
   {
     path: '/account',
