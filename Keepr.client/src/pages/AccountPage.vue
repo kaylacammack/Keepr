@@ -19,7 +19,7 @@
 
             <div class="col-10">
                 <h1 class="text-center">{{ account.name }}</h1>
-                <!-- TODO Add number of vaults & keeps -->
+                <h4 class="text-center">Vaults: {{ accountVaults.length }} || Keeps: {{ keeps.length }}</h4>
             </div>
         </div>
         <!-- SECTION Account Vaults -->

@@ -7,12 +7,12 @@
 
         <!-- SECTION Create Vault/Keep Form Modal -->
         <!-- TODO Have drop down button to create vault/keep -->
-        <button v-if="user.id" type="button" class="btn btn-primary" data-bs-toggle="modal"
+        <button v-if="user.id" type="button" class="btn btn-primary px-3" data-bs-toggle="modal"
             data-bs-target="#createVault">
             Create Vault
         </button>
 
-        <button v-if="user.id" type="button" class="btn btn-primary" data-bs-toggle="modal"
+        <button v-if="user.id" type="button" class="btn btn-primary px-3" data-bs-toggle="modal"
             data-bs-target="#createKeep">
             Create Keep
         </button>
@@ -21,7 +21,7 @@
         <CreateKeepForm />
         <!-- SECTION Login -->
         <!-- TODO Have login display in far right corner and change styling so it's not a light green -->
-        <div class="collapse navbar-collapse" id="navbarText">
+        <div class="collapse navbar-collapse justify-content-end" id="navbarText">
             <Login />
         </div>
     </nav>
