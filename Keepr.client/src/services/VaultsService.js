@@ -2,7 +2,6 @@ import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
 import { api } from "./AxiosService";
 import { AppState } from "../AppState.js";
-import { Keep } from "../models/Keep.js";
 import { Vault } from "../models/Vault";
 
 class VaultsService {
@@ -28,16 +27,8 @@ class VaultsService {
     }
 
     async getVaultById(vaultId) {
-        try {
-            const res = await api.get('api/vaults/' + vaultId)
-            if (res.data == null){
-                throw new Error('No vault found with that Id')
-            } 
-            AppState.activeVault = res.data
-        } catch (error) {
-            logger.error(error)
-            Pop.error(error.message)
-        }
+        const res = await api.get('api/vaults/' + vaultId)
+        AppState.activeVault = res.data
     }
    
 

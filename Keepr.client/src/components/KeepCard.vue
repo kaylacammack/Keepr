@@ -16,7 +16,7 @@
 import { keepsService } from "../services/KeepsService";
 import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 import { Modal } from "bootstrap";
 import KeepModal from "./KeepModal.vue";
 import { AppState } from '../AppState'

@@ -16,28 +16,34 @@
             </div>
         </div>
     </div>
+
+    <div v-if="isPrivate">
+        <h1>This vault is private</h1>
+    </div>
+
 </template>
 
 <script>
-import { onMounted, computed } from "vue";
+import { onMounted, computed, ref } from "vue";
 import { useRoute } from "vue-router";
 import { vaultsService } from "../services/VaultsService";
 import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
 import { AppState } from "../AppState";
 import ProfileKeepCard from "../components/ProfileKeepCard.vue";
+import { router } from "../router.js";
 
 export default {
     setup() {
         const route = useRoute();
+        const isPrivate = ref(false)
         async function getVaultById() {
             try {
                 await vaultsService.getVaultById(route.params.vaultId)
             } catch (error) {
                 logger.error(error)
                 Pop.error(error.message)
-                // FIXME if there is an error
-                // you might need to send them away...
+                router.push({ name: 'Home' })
             }
         }
         async function GetKeepsByVaultId() {
@@ -56,8 +62,9 @@ export default {
         return {
             vaultKeeps: computed(() => AppState.vaultKeeps),
             vault: computed(() => AppState.activeVault),
-            vaultImg: computed(() => `url(${AppState.activeVault.img})`)
-
+            vaultImg: computed(() => `url(${AppState.activeVault.img})`),
+            user: computed(() => AppState.user),
+            isPrivate,
         };
     },
     components: { ProfileKeepCard }

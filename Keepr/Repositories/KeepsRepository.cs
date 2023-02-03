@@ -24,8 +24,6 @@ public class KeepsRepository
 
     public List<Keep> GetAllKeeps()
     {
-        // FIXME add the COUNT statement for getting the vaultkeeps
-        // reference reviewCount or cultMembers 
         string sql = @"
         SELECT
             COUNT(vk.id) as kept,
@@ -46,7 +44,6 @@ public class KeepsRepository
 
     public Keep GetKeepById(int keepId)
     {
-        // FIXME add the same type of COUNT here
         string sql = @"
         SELECT
         COUNT(vk.id) as kept,

@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import { authGuard } from '@bcwdev/auth0provider-client'
+import { authGuard, authSettled } from '@bcwdev/auth0provider-client'
 
 function loadPage(page) {
   return () => import(`./pages/${page}.vue`)
@@ -19,9 +19,8 @@ const routes = [
   {
     path: '/vaults/:vaultId',
     name: 'Vault',
-    component: loadPage('VaultPage')
-    // FIXME you are missing a router guard here.... 
-    // reference help reviews
+    component: loadPage('VaultPage'),
+    beforeEnter: authSettled
   },
   {
     path: '/account',
