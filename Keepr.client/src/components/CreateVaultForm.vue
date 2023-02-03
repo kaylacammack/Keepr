@@ -54,7 +54,7 @@ export default {
             editable,
             async createVault() {
                 try {
-                    // FIXME set default value for isPrivate
+                    logger.log(editable.value)
                     await vaultsService.createVault(editable.value)
                     logger.log(editable.value)
                     Pop.toast('Vault Created', 'success')

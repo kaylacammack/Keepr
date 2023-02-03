@@ -1,6 +1,5 @@
 <template>
     <div class="card text-bg-dark">
-        <!-- FIXME debug this component and get delete working -->
         <img :src="keep.img" class="card-img keepImg" type="button" @click="setActiveKeep(keep.keepId)">
         <div class="card-img-overlay">
             <h5 class="card-title keepName ms-2">{{ keep.name }}</h5>

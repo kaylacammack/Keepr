@@ -7,11 +7,13 @@
 
         <!-- SECTION Create Vault/Keep Form Modal -->
         <!-- TODO Have drop down button to create vault/keep -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createVault">
+        <button v-if="user.id" type="button" class="btn btn-primary" data-bs-toggle="modal"
+            data-bs-target="#createVault">
             Create Vault
         </button>
 
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createKeep">
+        <button v-if="user.id" type="button" class="btn btn-primary" data-bs-toggle="modal"
+            data-bs-target="#createKeep">
             Create Keep
         </button>
 
@@ -26,11 +28,15 @@
 </template>
 
 <script>
+import { AppState } from "../AppState";
 import CreateKeepForm from "./CreateKeepForm.vue";
 import Login from './Login.vue'
+import { computed } from "vue";
 export default {
     setup() {
-        return {}
+        return {
+            user: computed(() => AppState.user),
+        }
     },
     components: { Login, CreateKeepForm }
 }

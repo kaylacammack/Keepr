@@ -24,7 +24,6 @@
                                 <p>{{ keep.description }}</p>
                             </div>
                             <!-- SECTION Add Keep to Vault -->
-                            <!-- TODO Update kept count anytime a keep is added to a vault -->
                             <!-- TODO Align drop down to bottom left of column -->
 
                             <div v-if="user" class="col-3 align-self-end dropdown">
@@ -38,23 +37,14 @@
                                             {{ v.name }}
                                         </h5>
                                     </div>
-
-
                                 </div>
                             </div>
-
                             <div v-if="keep.creatorId">
-                                <!-- FIXME close the modal remember data-bs-dismiss -->
                                 <router-link :to="{ name: 'Profile', params: { profileId: keep.creatorId } }">
                                     <img :src="keep.creator.picture" class="rounded-pill creatorPicture mb-2 me-2"
-                                        :title="keep.creator.name">
+                                        :title="keep.creator.name" data-bs-dismiss="modal">
                                 </router-link>
                             </div>
-
-                            <!-- SECTION delete keep -->
-                            <!-- <div v-if="user?.id == keep.creatorId" type="button" @click="deleteKeep(keep.id)"
-                                class="mdi mdi-delete-outline mdi-36px trash" title="delete keep">
-                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -65,7 +55,7 @@
 </template>
 
 <script>
-import { computed } from "@vue/reactivity";
+import { computed } from "vue";
 import { AppState } from "../AppState.js";
 import { keepsService } from "../services/KeepsService";
 import { vaultKeepsService } from "../services/VaultKeepService";

@@ -6,14 +6,10 @@ import { Vault } from "../models/Vault";
 
 class VaultsService {
     async createVault(vaultData) {
-        try {
-            const res = await api.post('api/vaults', vaultData)
-            AppState.vaults = [new Vault(res.data), ...AppState.vaults]
-            
-        } catch (error) {
-            logger.error(error)
-            Pop.error(error.message)
-        }
+        vaultData.isPrivate == undefined ? vaultData.isPrivate = false : vaultData.isPrivate
+        logger.log(vaultData.isPrivate)
+        const res = await api.post('api/vaults', vaultData)
+        AppState.vaults = [new Vault(res.data), ...AppState.vaults]
     }
     async getAllProfileVaults(profileId) {
         try {
@@ -33,14 +29,8 @@ class VaultsService {
    
 
     async GetKeepsByVaultId(vaultId) {
-        try {
-            const res = await api.get('api/vaults/' + vaultId + '/keeps')
-            logger.log('[Getting vault keeps]', res.data)
-            AppState.vaultKeeps = res.data
-        } catch (error) {
-            logger.error(error)
-            Pop.error(error.message)
-        }
+        const res = await api.get('api/vaults/' + vaultId + '/keeps')
+        AppState.vaultKeeps = res.data
     }
 
     async deleteVault(vaultId) {

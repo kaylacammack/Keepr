@@ -2,7 +2,6 @@
     <div class="container-fluid">
         <!-- SECTION Account Information -->
         <div v-if="account" class="row">
-            <!-- FIXME coverImage not displaying -->
             <div class="col-10">
                 <img :src="account.coverImg" class="cover-img">
             </div>
@@ -10,7 +9,6 @@
             <div class="col-10">
                 <img :src="account.picture" :alt="account.name" class="img-fluid profile-picture rounded-circle">
             </div>
-            <!-- FIXME Edit account gives a 404 error message, backend not set up to support editing account -->
             <!-- SECTION edit account modal form -->
             <button type="button" class="btn btn-primary col-3" data-bs-toggle="modal"
                 data-bs-target="#editAccountForm">
@@ -34,7 +32,9 @@
         <!-- SECTION Account Keeps -->
         <div class="row">
             <h1 class="text-center">Keeps</h1>
-
+            <div v-for="k in keeps" class="col-12 col-md-3 mb-3 p-4">
+                <ProfileKeepCard :keep="k" />
+            </div>
         </div>
     </div>
 </template>
@@ -43,9 +43,9 @@
 import { computed, onMounted } from 'vue'
 import { AppState } from '../AppState'
 import EditAccountForm from "../components/EditAccountForm.vue";
+import ProfileKeepCard from "../components/ProfileKeepCard.vue";
 import VaultCard from "../components/VaultCard.vue";
 import { accountService } from "../services/AccountService";
-import { vaultsService } from "../services/VaultsService";
 import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
 export default {
@@ -66,9 +66,10 @@ export default {
         return {
             account: computed(() => AppState.account),
             accountVaults: computed(() => AppState.accountVaults),
+            keeps: computed(() => AppState.profileKeeps),
         };
     },
-    components: { VaultCard, EditAccountForm }
+    components: { VaultCard, EditAccountForm, ProfileKeepCard }
 }
 </script>
 
